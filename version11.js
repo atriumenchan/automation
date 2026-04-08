@@ -1,47 +1,45 @@
 'use strict';
 
 /**
- * version11.js  —  Microsoft Ads Full Automation (One Shot)
+ * version11.js  —  Microsoft Ads One-Shot Automation
  * ─────────────────────────────────────────────────────────────────
- * Combines index.js (Microsoft login + Rambler IMAP secondary email)
- * with restore.js (full Microsoft Ads business setup).
+ * ONE browser session, no closing, no re-navigation, no mid-flow saves.
  *
- * Flow per account:
- *   1.  Read ALL logs — skip accounts already completed
- *   2.  Pick fresh proxy + fresh Rambler account (never reuse)
- *   3.  Open browser → navigate to Microsoft login OAuth URL
- *   4.  Enter email → Next
- *   5.  Enter password → Sign in
- *   6.  Detect "already_used" (existing secondary) → log + skip
- *   7.  Enter Rambler email as secondary → Send code
- *   8.  Fetch OTP from Rambler inbox via IMAP (ImapFlow, imap.rambler.ru)
- *   9.  Enter OTP → Verify
- *  10.  Click "Stay signed in"
- *  11.  Save post_login session
- *  12.  Navigate to ads.microsoft.com
- *  13.  Handle sign-in flow: Sign in → Continue with Microsoft →
- *        account picker → Stay signed in (again if needed)
- *  14.  Wait for "Tell us about your business" form
- *       - Fill website (from business.json, round-robin)
- *       - Next
- *       - Fill business name + phone
- *       - Check all checkboxes
- *       - Next
- *  15.  "How can we help" → select "Create account"
- *  16.  Select "Create account only" card → Next
- *  17.  Account details form: address1, city, state dropdown, postal code → Next
- *  18.  Payment page → "Set up payment later" → Yes
- *  19.  Wait 3 minutes
- *  20.  Screenshot → screenshots_accounts/ folder
- *  21.  Save final session + mark success in all log files
+ * PHASE 1 — LOGIN
+ *   Navigate to OAuth URL → email → password
+ *   Detect already_used → skip if found
+ *   Enter Rambler secondary email → OTP via IMAP → Stay Signed In (Yes)
+ *   → OAuth redirect drops us directly on ads.microsoft.com website page
+ *
+ * PHASE 2 — WEBSITE ENTRY
+ *   Fill website URL → wait for page to expand
+ *
+ * PHASE 3 — COMPANY INFO + CHECKBOXES (same page after expansion)
+ *   Location = Netherlands, Company Name, Phone (Netherlands + number)
+ *   Check all 3 checkboxes → Next
+ *
+ * PHASE 4 — HOW CAN WE HELP
+ *   Click "Create account" tile → (no Next, it navigates)
+ *
+ * PHASE 5 — CHOOSE EXPERIENCE
+ *   Click "Create account only" card → Next
+ *
+ * PHASE 6 — ACCOUNT DETAILS
+ *   Address line 1, City, State or province (dropdown), Postal code → Next
+ *
+ * PHASE 7 — PAYMENT
+ *   Click "Set up payment later" → Yes on popup
+ *
+ * PHASE 8 — FINAL
+ *   Wait exactly 3 minutes → screenshot to screenshots_accounts/
+ *   Save session → mark success in all log files
  * ─────────────────────────────────────────────────────────────────
  * Usage:  node version11.js
- * ─────────────────────────────────────────────────────────────────
  */
 
-const { chromium }                    = require('playwright');
-const fs                              = require('fs');
-const path                            = require('path');
+const { chromium }                     = require('playwright');
+const fs                               = require('fs');
+const path                             = require('path');
 const { waitForOtp, parseRamblerFile } = require('./imap_otp');
 
 // ═══════════════════════════════════════════════════════════════
@@ -54,9 +52,8 @@ const PROXIES_FILE      = path.join(ROOT, 'proxies.txt');
 const RAMBLER_FILE      = path.join(ROOT, 'rambler.txt');
 const BUSINESS_FILE     = path.join(ROOT, 'business.json');
 const SESSIONS_DIR      = path.join(ROOT, 'sessions');
-const SCREENSHOTS_FINAL = path.join(ROOT, 'screenshots_accounts'); // final dashboard shots
+const SCREENSHOTS_DIR   = path.join(ROOT, 'screenshots_accounts');
 const LOG_DIR           = path.join(ROOT, 'logs');
-const LOG_SCREENSHOTS   = path.join(LOG_DIR, 'screenshots');       // step screenshots
 const INDEX_FILE        = path.join(LOG_DIR, 'account_index.json');
 const SESSIONS_LOG      = path.join(LOG_DIR, 'sessions.json');
 const DETAILS_JSON      = path.join(LOG_DIR, 'details.json');
@@ -64,8 +61,10 @@ const DETAILS_TXT       = path.join(LOG_DIR, 'details.txt');
 const ALREADY_USED_JSON = path.join(LOG_DIR, 'already_used.json');
 const ALREADY_USED_TXT  = path.join(LOG_DIR, 'already_used.txt');
 
-// Microsoft login OAuth URL (same as index.js)
-const MS_LOGIN_URL = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize'
+// OAuth URL — redirect_uri points to ads.microsoft.com, so after "Stay signed in"
+// the browser lands directly on the Ads website-entry page. No second goto() needed.
+const MS_LOGIN_URL =
+  'https://login.microsoftonline.com/common/oauth2/v2.0/authorize'
   + '?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace'
   + '&response_type=code%20id_token'
   + '&scope=openid%20profile'
@@ -81,42 +80,42 @@ const MS_LOGIN_URL = 'https://login.microsoftonline.com/common/oauth2/v2.0/autho
   + '&sso_reload=true';
 
 // ═══════════════════════════════════════════════════════════════
-// STEP LOGGER
+// LOGGER
 // ═══════════════════════════════════════════════════════════════
 
-let _steps = [], _n = 0, _email = '';
+let _steps = [], _stepN = 0, _curEmail = '';
 
-function resetLog(email) { _steps = []; _n = 0; _email = email; }
+function resetLog(email) { _steps = []; _stepN = 0; _curEmail = email; }
 const ts   = () => new Date().toISOString();
-const step = (m) => { _n++; _steps.push({ n: _n, t: ts(), m }); console.log(`\n[STEP ${String(_n).padStart(2,'0')}] ${m}`); };
-const ok   = (m) => { _steps.push({ n: _n, t: ts(), ok: m }); console.log(`       ✅ ${m}`); };
-const warn = (m) => { _steps.push({ n: _n, t: ts(), warn: m }); console.log(`       ⚠  ${m}`); };
-const info = (m) => { _steps.push({ n: _n, t: ts(), info: m }); console.log(`          ${m}`); };
-const fail = (m) => { _steps.push({ n: _n, t: ts(), fail: m }); console.log(`       ✗  ${m}`); };
+const step = (m) => { _stepN++; console.log(`\n[STEP ${String(_stepN).padStart(2,'0')}] ${m}`); _steps.push({ n: _stepN, t: ts(), m }); };
+const ok   = (m) => { console.log(`       ✅ ${m}`); _steps.push({ t: ts(), ok: m }); };
+const warn = (m) => { console.log(`       ⚠  ${m}`); _steps.push({ t: ts(), warn: m }); };
+const info = (m) => { console.log(`          ${m}`); _steps.push({ t: ts(), info: m }); };
+const fail = (m) => { console.log(`       ✗  ${m}`); _steps.push({ t: ts(), fail: m }); };
 
-async function pageInfo(page) {
+async function logPage(page) {
   try {
-    const url   = page.url();
-    const title = await page.title().catch(() => '?');
-    info(`URL  : ${url.split('?')[0]}`);
-    info(`Title: ${title}`);
-    return { url, title };
+    const u = page.url();
+    const t = await page.title().catch(() => '?');
+    info(`URL: ${u.split('?')[0]}`);
+    info(`Title: ${t}`);
+    return { url: u, title: t };
   } catch { return { url: '', title: '' }; }
 }
 
 // ═══════════════════════════════════════════════════════════════
-// DIRECTORIES
+// DIRS
 // ═══════════════════════════════════════════════════════════════
 
 function ensureDirs() {
-  for (const d of [LOG_DIR, SESSIONS_DIR, SCREENSHOTS_FINAL, LOG_SCREENSHOTS,
+  for (const d of [LOG_DIR, SESSIONS_DIR, SCREENSHOTS_DIR,
                    path.join(ROOT, 'accounts'), path.join(ROOT, 'inboxes')]) {
     if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
   }
 }
 
 // ═══════════════════════════════════════════════════════════════
-// LOG READ / WRITE  (reads BEFORE doing anything each run)
+// LOG HELPERS  (read ALL logs before doing anything)
 // ═══════════════════════════════════════════════════════════════
 
 function readIndex() {
@@ -125,8 +124,8 @@ function readIndex() {
 }
 
 function writeIndex(email, patch) {
-  const db      = readIndex();
-  db[email]     = { ...db[email], ...patch };
+  const db  = readIndex();
+  db[email] = { ...db[email], ...patch };
   fs.writeFileSync(INDEX_FILE, JSON.stringify(db, null, 2));
 }
 
@@ -136,9 +135,8 @@ function isCompleted(email) {
 
 function getUsedRamblers() {
   const used = new Set();
-  for (const e of Object.values(readIndex())) {
+  for (const e of Object.values(readIndex()))
     if (e.secondary_email) used.add(e.secondary_email.toLowerCase());
-  }
   return used;
 }
 
@@ -149,137 +147,130 @@ function getUsedProxies() {
 function getStats() {
   const entries = Object.values(readIndex());
   return {
-    total:       entries.length,
-    success:     entries.filter(e => e.status === 'success').length,
-    failed:      entries.filter(e => e.status === 'failed').length,
+    total:        entries.length,
+    success:      entries.filter(e => e.status === 'success').length,
+    failed:       entries.filter(e => e.status === 'failed').length,
     already_used: entries.filter(e => e.status === 'already_used').length,
   };
 }
 
-function appendSessionLog(entry) {
-  let data = [];
-  if (fs.existsSync(SESSIONS_LOG)) try { data = JSON.parse(fs.readFileSync(SESSIONS_LOG, 'utf8')); } catch {}
-  data.push(entry);
-  fs.writeFileSync(SESSIONS_LOG, JSON.stringify(data, null, 2));
+function appendLog(entry) {
+  let d = [];
+  if (fs.existsSync(SESSIONS_LOG)) try { d = JSON.parse(fs.readFileSync(SESSIONS_LOG, 'utf8')); } catch {}
+  d.push(entry);
+  fs.writeFileSync(SESSIONS_LOG, JSON.stringify(d, null, 2));
 }
 
 function saveDetails(entry) {
   const icon = entry.status === 'success' ? '✅' : entry.status === 'already_used' ? '⚠️' : '❌';
-  const line = [
+  fs.appendFileSync(DETAILS_TXT, [
     '─'.repeat(60),
-    `${icon} Status     : ${entry.status.toUpperCase()}`,
-    `📧 Account   : ${entry.email}`,
-    `📮 Secondary : ${entry.secondary_email || 'N/A'}`,
-    `🌐 Proxy     : ${entry.proxy}`,
-    `💾 Session   : ${entry.session_file || 'N/A'}`,
-    `🕐 Time      : ${entry.time}`,
-    entry.note ? `📝 Note      : ${entry.note}` : null,
+    `${icon} ${entry.status.toUpperCase()} : ${entry.email}`,
+    `   Secondary : ${entry.secondary_email || 'N/A'}`,
+    `   Proxy     : ${entry.proxy}`,
+    `   Time      : ${entry.time}`,
+    entry.note ? `   Note      : ${entry.note}` : null,
     '─'.repeat(60), '',
-  ].filter(Boolean).join('\n');
-  fs.appendFileSync(DETAILS_TXT, line);
-  let data = [];
-  if (fs.existsSync(DETAILS_JSON)) try { data = JSON.parse(fs.readFileSync(DETAILS_JSON, 'utf8')); } catch {}
-  data.push(entry);
-  fs.writeFileSync(DETAILS_JSON, JSON.stringify(data, null, 2));
+  ].filter(Boolean).join('\n'));
+
+  let d = [];
+  if (fs.existsSync(DETAILS_JSON)) try { d = JSON.parse(fs.readFileSync(DETAILS_JSON, 'utf8')); } catch {}
+  d.push(entry);
+  fs.writeFileSync(DETAILS_JSON, JSON.stringify(d, null, 2));
 }
 
 function logAlreadyUsed(entry) {
-  let data = [];
-  if (fs.existsSync(ALREADY_USED_JSON)) try { data = JSON.parse(fs.readFileSync(ALREADY_USED_JSON, 'utf8')); } catch {}
-  if (!data.find(e => e.email === entry.email)) data.push(entry);
-  fs.writeFileSync(ALREADY_USED_JSON, JSON.stringify(data, null, 2));
-  const line = ['─'.repeat(60), `⚠️  ALREADY USED: ${entry.email}`,
-    `   Secondary : ${entry.secondary_seen || 'unknown'}`,
-    `   Proxy     : ${entry.proxy}`, `   Time      : ${entry.time}`,
-    '─'.repeat(60), ''].join('\n');
-  fs.appendFileSync(ALREADY_USED_TXT, line);
+  let d = [];
+  if (fs.existsSync(ALREADY_USED_JSON)) try { d = JSON.parse(fs.readFileSync(ALREADY_USED_JSON, 'utf8')); } catch {}
+  if (!d.find(e => e.email === entry.email)) d.push(entry);
+  fs.writeFileSync(ALREADY_USED_JSON, JSON.stringify(d, null, 2));
+  fs.appendFileSync(ALREADY_USED_TXT,
+    `${'─'.repeat(60)}\n⚠️  ALREADY USED: ${entry.email}\n   Secondary: ${entry.secondary_seen || 'unknown'}\n   Time: ${entry.time}\n${'─'.repeat(60)}\n\n`);
 }
 
 function saveStepLog(email, status) {
-  const fname = `steps_${email.replace(/[@.]/g,'_')}_${ts().replace(/[:.]/g,'-')}.json`;
-  const p     = path.join(LOG_DIR, fname);
+  const p = path.join(LOG_DIR, `steps_${email.replace(/[@.]/g,'_')}_${ts().replace(/[:.]/g,'-')}.json`);
   fs.writeFileSync(p, JSON.stringify({ email, status, steps: _steps }, null, 2));
-  info(`Step log saved: ${fname}`);
+  info(`Step log: ${path.basename(p)}`);
 }
 
 // ═══════════════════════════════════════════════════════════════
-// HELPERS
+// UTILITIES
 // ═══════════════════════════════════════════════════════════════
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-const hd    = (lo = 700, hi = 2000) => sleep(Math.floor(Math.random() * (hi - lo + 1)) + lo);
+const hd    = (lo = 600, hi = 1800) => sleep(Math.floor(Math.random() * (hi - lo + 1)) + lo);
 
 function parseProxy(str) {
   const [host, port, user, pass] = str.split(':');
   return { server: `http://${host}:${port}`, username: user, password: pass };
 }
 
-function safeEmail(email) { return email.replace(/[@.]/g, '_'); }
+function safeEmail(e) { return e.replace(/[@.]/g, '_'); }
 
-// Human-style typing into the first matching visible element from a CSS selector list
-async function hType(page, cssSelectorList, text) {
-  const loc = page.locator(cssSelectorList).first();
-  await loc.waitFor({ state: 'visible', timeout: 14000 });
+// Human-like typing into first matching visible element (CSS selector list)
+async function hType(page, cssSels, text, timeoutMs = 15000) {
+  const loc = page.locator(cssSels).first();
+  await loc.waitFor({ state: 'visible', timeout: timeoutMs });
   await loc.click();
-  try { await loc.clear(); } catch {
-    // Fallback: clear via JS for the first matching element
+  // Clear existing value
+  await loc.fill('').catch(async () => {
+    // Fallback clear
     await page.evaluate((sel) => {
       const el = document.querySelector(sel);
       if (el) { el.value = ''; el.dispatchEvent(new Event('input', { bubbles: true })); }
-    }, cssSelectorList).catch(() => {});
-  }
-  await hd(200, 500);
+    }, cssSels.split(',')[0].trim()).catch(() => {});
+  });
+  await hd(150, 350);
   for (const ch of String(text)) {
     await page.keyboard.type(ch);
-    await sleep(Math.floor(Math.random() * 90) + 35);
+    await sleep(Math.floor(Math.random() * 80) + 30);
   }
 }
 
-// Return the first selector (from array) whose element is visible within timeout
-async function firstVisible(page, selArray, timeout = 10000) {
+// Click the first visible selector in an array
+async function tryClick(page, selArray, label, timeoutMs = 8000) {
+  for (const s of selArray) {
+    try {
+      await page.locator(s).first().waitFor({ state: 'visible', timeout: timeoutMs });
+      await hd(300, 700);
+      await page.locator(s).first().click();
+      ok(`Clicked: ${label}`);
+      return true;
+    } catch {}
+  }
+  warn(`Not found: ${label}`);
+  return false;
+}
+
+// Return first visible selector from array, or null
+async function firstVisible(page, selArray, timeoutMs = 8000) {
   try {
     return await Promise.race(selArray.map(async (s) => {
-      await page.locator(s).first().waitFor({ state: 'visible', timeout });
+      await page.locator(s).first().waitFor({ state: 'visible', timeout: timeoutMs });
       return s;
     }));
   } catch { return null; }
 }
 
-// Try clicking the first visible selector from a list
-async function tryClick(page, selArray, label, timeout = 8000) {
-  for (const s of selArray) {
-    try {
-      await page.locator(s).first().waitFor({ state: 'visible', timeout });
-      await hd(400, 900);
-      await page.locator(s).first().click();
-      ok(`Clicked "${label}" [${s}]`);
-      return true;
-    } catch {}
-  }
-  warn(`"${label}" not found`);
-  return false;
-}
-
-// Click Next / Continue / Submit button
-async function clickNext(page) {
+// Click Next / Continue / Submit
+async function clickNext(page, timeoutMs = 10000) {
   const sels = [
     'button:has-text("Next")',
+    'input[type="submit"][value="Next"]',
     'button:has-text("Save and continue")',
     'button:has-text("Continue")',
     'button[type="submit"]',
-    'input[type="submit"]',
-    'button:has-text("Done")',
     '[data-testid*="next" i]',
-    '[aria-label*="Next" i]',
   ];
   for (const s of sels) {
     try {
       const el = page.locator(s).first();
-      await el.waitFor({ state: 'visible', timeout: 8000 });
+      await el.waitFor({ state: 'visible', timeout: timeoutMs });
       await el.scrollIntoViewIfNeeded();
-      await hd(500, 900);
+      await hd(400, 800);
       await el.click();
-      ok(`Clicked Next: [${s}]`);
+      ok(`Clicked Next [${s}]`);
       return true;
     } catch {}
   }
@@ -287,27 +278,19 @@ async function clickNext(page) {
   return false;
 }
 
-// ═══════════════════════════════════════════════════════════════
-// SCREENSHOT & SESSION SAVE
-// ═══════════════════════════════════════════════════════════════
-
+// Screenshot helper
 async function shot(page, label, dir) {
-  const d     = dir || LOG_SCREENSHOTS;
+  const d = dir || path.join(LOG_DIR, 'screenshots');
   if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
-  const fname = `${safeEmail(_email)}_${label}_${ts().replace(/[:.]/g,'-')}.png`;
-  const p     = path.join(d, fname);
-  try {
-    await page.screenshot({ path: p, fullPage: false });
-    info(`Screenshot: ${path.basename(p)}`);
-    return p;
-  } catch (e) {
-    info(`(screenshot failed: ${e.message})`);
-    return null;
-  }
+  const fname = `${safeEmail(_curEmail)}_${label}_${ts().replace(/[:.]/g,'-')}.png`;
+  const p = path.join(d, fname);
+  try { await page.screenshot({ path: p, fullPage: false }); info(`Screenshot: ${fname}`); return p; }
+  catch (e) { info(`(screenshot failed: ${e.message})`); return null; }
 }
 
+// Save session to sessions/
 async function saveSession(context, label) {
-  const safe = safeEmail(_email);
+  const safe = safeEmail(_curEmail);
   const t    = ts().replace(/[:.]/g, '-');
   const sp   = path.join(SESSIONS_DIR, `${safe}_${label}_${t}.json`);
   const cp   = path.join(SESSIONS_DIR, `${safe}_${label}_${t}_cookies.json`);
@@ -315,338 +298,102 @@ async function saveSession(context, label) {
   const cookies = await context.cookies();
   fs.writeFileSync(cp, JSON.stringify(cookies, null, 2));
   ok(`Session saved: ${path.basename(sp)} (${cookies.length} cookies)`);
-  return { sp, cp, cookies };
+  return { sp, cp };
+}
+
+// Force-select Netherlands in a native <select> dropdown
+async function selectNetherlandsDropdown(page, selectors) {
+  for (const s of selectors) {
+    try {
+      const el = page.locator(s).first();
+      if (await el.isVisible({ timeout: 3000 })) {
+        await el.selectOption({ label: 'Netherlands' }).catch(async () => {
+          // Try value-based selection
+          const opts = await el.locator('option').all();
+          for (const opt of opts) {
+            const txt = await opt.textContent().catch(() => '');
+            if (/netherlands/i.test(txt)) {
+              await el.selectOption({ value: await opt.getAttribute('value') });
+              break;
+            }
+          }
+        });
+        ok(`Location/Country → Netherlands [${s}]`);
+        await hd(400, 700);
+        return true;
+      }
+    } catch {}
+  }
+  return false;
+}
+
+// Force-select Netherlands on a CUSTOM phone country dropdown (click-based)
+async function selectNetherlandsPhoneDropdown(page) {
+  // Strategy 1: native select near phone input
+  const nativeResult = await page.evaluate(() => {
+    const selects = Array.from(document.querySelectorAll('select'));
+    for (const sel of selects) {
+      // Is it near a phone input?
+      const id   = (sel.id + sel.name + (sel.getAttribute('aria-label') || '')).toLowerCase();
+      const rect = sel.getBoundingClientRect();
+      if (rect.width < 200) { // country code dropdowns are narrow
+        const opts = Array.from(sel.options);
+        const nl   = opts.find(o => /netherlands/i.test(o.text));
+        if (nl) {
+          sel.value = nl.value;
+          sel.dispatchEvent(new Event('change', { bubbles: true }));
+          return `native select: value=${nl.value}`;
+        }
+      }
+    }
+    return null;
+  });
+  if (nativeResult) { ok(`Phone country dropdown → Netherlands (${nativeResult})`); return true; }
+
+  // Strategy 2: click the custom dropdown button, then click Netherlands
+  const dropBtns = [
+    'button[aria-label*="country" i]',
+    'button[aria-label*="phone" i]',
+    '[class*="phone"][class*="country"]',
+    '[class*="country-select"]',
+    '[class*="PhoneInput"] select',
+    '[class*="phone"] select',
+  ];
+  for (const sel of dropBtns) {
+    try {
+      if (await page.locator(sel).first().isVisible({ timeout: 2000 })) {
+        await page.locator(sel).first().click();
+        await hd(500, 1000);
+        // Now try to click Netherlands in the open dropdown list
+        const nlClicked = await tryClick(page,
+          ['li:has-text("Netherlands")', '[role="option"]:has-text("Netherlands")', 'div:has-text("Netherlands")'],
+          'Netherlands option', 3000);
+        if (nlClicked) return true;
+      }
+    } catch {}
+  }
+  return false;
 }
 
 // ═══════════════════════════════════════════════════════════════
-// ALREADY-USED DETECTOR  (checks page after password sign-in)
+// ALREADY-USED DETECTOR
 // ═══════════════════════════════════════════════════════════════
 
 async function checkAlreadyUsed(page) {
   try {
-    const content = await page.content();
+    const html = await page.content();
     // Microsoft shows "We'll send a code to ****@***.com" when account already has secondary
-    if (
-      (content.includes("We'll send a code to") || content.includes('We will send a code to')) &&
-      content.includes('*')
-    ) {
-      const match =
-        content.match(/send a code to\s*<[^>]*>([^<]+)/i) ||
-        content.match(/send a code to\s+([^\s<]+\*+[^\s<]+)/i);
-      const maskedEmail = match ? match[1].replace(/<[^>]*>/g, '').trim() : 'unknown';
-      return { alreadyUsed: true, maskedEmail };
+    if ((html.includes("We'll send a code to") || html.includes('We will send a code to'))
+        && html.includes('*')) {
+      const m = html.match(/send a code to[^<]{0,30}<[^>]+>([^<]+)/i)
+             || html.match(/send a code to\s+([^\s<]{3,})/i);
+      return { alreadyUsed: true, maskedEmail: m ? m[1].replace(/<[^>]*>/g,'').trim() : 'unknown' };
     }
-    if (content.includes('Verify your identity') && content.includes('*@')) {
+    if (html.includes('Verify your identity') && html.includes('@')) {
       return { alreadyUsed: true, maskedEmail: 'unknown' };
     }
   } catch {}
   return { alreadyUsed: false };
-}
-
-// ═══════════════════════════════════════════════════════════════
-// BUSINESS FORM FILLER  (Tell us about your business)
-// ═══════════════════════════════════════════════════════════════
-
-async function fillBusinessForm(page, biz, context) {
-  // Dump visible inputs for debugging
-  const inputInfo = await page.evaluate(() =>
-    Array.from(document.querySelectorAll('input, select, textarea'))
-      .filter(el => el.offsetWidth || el.offsetHeight)
-      .map(el => ({ tag: el.tagName, type: el.type, id: el.id, name: el.name, placeholder: el.placeholder }))
-  ).catch(() => []);
-  info(`Visible inputs: ${JSON.stringify(inputInfo)}`);
-
-  // ── Page 1: website field ─────────────────────────────────────
-  step('Fill website (Page 1)');
-  let websiteFilled = false;
-  for (const s of [
-    'input[placeholder*="https://" i]',
-    'input[placeholder*="website" i]',
-    'input[name*="website" i]',
-    'input[name*="url" i]',
-    'input[type="url"]',
-    'input[id*="website" i]',
-  ]) {
-    try {
-      const el = page.locator(s).first();
-      if (await el.isVisible({ timeout: 4000 })) {
-        await el.click();
-        await hd(200, 400);
-        await el.fill('');
-        await hd(100, 200);
-        await el.type(biz.website, { delay: 60 });
-        ok(`Website: ${biz.website}`);
-        websiteFilled = true;
-        break;
-      }
-    } catch {}
-  }
-  if (!websiteFilled) warn('Website field not found');
-  await hd(800, 1200);
-
-  // Check if business name field also visible (single-page form vs multi-page)
-  const bizNameNow = await page.locator(
-    'input[placeholder*="business name" i], input[placeholder="Enter your business name"], input[id*="business" i]'
-  ).first().isVisible({ timeout: 3000 }).catch(() => false);
-
-  if (!bizNameNow) {
-    // Multi-step: click Next to go from website page to business details page
-    step('Click Next → Page 2 (business name)');
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await hd(600, 1000);
-    await clickNext(page);
-    await hd(3000, 5000);
-    try { await page.waitForLoadState('networkidle', { timeout: 15000 }); } catch {}
-    await hd(1000, 2000);
-  }
-  await shot(page, '07_biz_p2');
-
-  // ── Page 2: business name ─────────────────────────────────────
-  step('Fill business name (Page 2)');
-  // Try via JS eval first (handles React-controlled inputs)
-  const bizNameJS = await page.evaluate((name) => {
-    for (const inp of Array.from(document.querySelectorAll('input'))) {
-      const ph = (inp.placeholder || '').toLowerCase();
-      const id = (inp.id || '').toLowerCase();
-      const nm = (inp.name || '').toLowerCase();
-      if ((ph.includes('business name') || ph.includes('company name') ||
-           id.includes('business')      || nm.includes('business')     || nm.includes('company'))
-          && (inp.offsetWidth || inp.offsetHeight)) {
-        const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
-        if (setter) setter.call(inp, name);
-        else inp.value = name;
-        inp.dispatchEvent(new Event('input',  { bubbles: true }));
-        inp.dispatchEvent(new Event('change', { bubbles: true }));
-        return `id="${inp.id}" placeholder="${inp.placeholder}"`;
-      }
-    }
-    return null;
-  }, biz.businessName);
-
-  if (bizNameJS) {
-    ok(`Business name (JS): ${bizNameJS}`);
-    // Also type through Playwright to trigger framework events
-    try {
-      const el = page.locator(
-        'input[placeholder*="business name" i], input[placeholder="Enter your business name"], input[id*="business" i], input[name*="business" i]'
-      ).first();
-      await el.click({ timeout: 3000 });
-      await hd(200, 400);
-      await el.fill(biz.businessName);
-      ok(`Business name typed: ${biz.businessName}`);
-    } catch {}
-  } else {
-    warn('Business name field not found via JS — trying Playwright selector');
-    try {
-      await hType(page,
-        'input[placeholder*="business name" i], input[placeholder="Enter your business name"], input[id*="business" i]',
-        biz.businessName);
-      ok(`Business name: ${biz.businessName}`);
-    } catch { warn('Business name field unreachable'); }
-  }
-  await hd(700, 1200);
-
-  // ── Phone ─────────────────────────────────────────────────────
-  step('Fill phone number');
-  const phoneJS = await page.evaluate((phone) => {
-    for (const inp of Array.from(document.querySelectorAll('input'))) {
-      const ph = (inp.placeholder || '').toLowerCase();
-      const id = (inp.id || '').toLowerCase();
-      const nm = (inp.name || '').toLowerCase();
-      const tp = (inp.type || '').toLowerCase();
-      if ((tp === 'tel' || ph.includes('phone') || ph.includes('number') ||
-           id.includes('phone') || nm.includes('phone'))
-          && (inp.offsetWidth || inp.offsetHeight)) {
-        const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
-        if (setter) setter.call(inp, phone);
-        else inp.value = phone;
-        inp.dispatchEvent(new Event('input',  { bubbles: true }));
-        inp.dispatchEvent(new Event('change', { bubbles: true }));
-        return `type="${inp.type}" id="${inp.id}" placeholder="${inp.placeholder}"`;
-      }
-    }
-    return null;
-  }, biz.phone);
-
-  if (phoneJS) {
-    ok(`Phone (JS): ${phoneJS}`);
-    try {
-      const el = page.locator('input[type="tel"], input[placeholder*="phone" i], input[id*="phone" i], input[name*="phone" i]').first();
-      await el.click({ timeout: 3000 });
-      await hd(200, 400);
-      await el.fill(biz.phone);
-      ok(`Phone typed: ${biz.phone}`);
-    } catch {}
-  } else {
-    warn('Phone field not found');
-  }
-  await hd(700, 1200);
-
-  // ── Checkboxes ────────────────────────────────────────────────
-  step('Check all checkboxes');
-  try {
-    const boxes = page.locator('input[type="checkbox"]');
-    const cnt   = await boxes.count();
-    info(`Found ${cnt} checkbox(es)`);
-    for (let i = 0; i < cnt; i++) {
-      try {
-        if (!(await boxes.nth(i).isChecked())) {
-          await hd(200, 500);
-          await boxes.nth(i).click();
-          info(`Checked box ${i + 1}`);
-        }
-      } catch {}
-    }
-  } catch (e) { warn(`Checkbox error: ${e.message}`); }
-  await hd(900, 1500);
-
-  await shot(page, '07_biz_form_filled');
-  if (context) { step('Save session (mid-form)'); await saveSession(context, 'mid_biz'); }
-
-  // ── Click Next on business details page ───────────────────────
-  step('Scroll + click Next on business details page');
-  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-  await hd(800, 1200);
-  await shot(page, '07_biz_scrolled');
-  await clickNext(page);
-  await hd(3000, 5000);
-}
-
-// ═══════════════════════════════════════════════════════════════
-// ACCOUNT DETAILS FORM  (Address, City, State, Postal Code)
-// ═══════════════════════════════════════════════════════════════
-
-async function fillAccountDetailsForm(page, biz, context) {
-  info(`Address fields: ${biz.address1} | ${biz.city} | ${biz.state} | ${biz.zip}`);
-
-  // Fill via JS eval (handles React/Angular controlled inputs)
-  const filled = await page.evaluate((data) => {
-    const results = [];
-
-    function setVal(el, value) {
-      if (!value || !el) return false;
-      const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
-      if (setter) setter.call(el, value);
-      else el.value = value;
-      el.dispatchEvent(new Event('input',  { bubbles: true }));
-      el.dispatchEvent(new Event('change', { bubbles: true }));
-      return true;
-    }
-
-    function findNear(labelText) {
-      for (const lbl of document.querySelectorAll('label, [class*="label"], strong, span')) {
-        if ((lbl.textContent || '').toLowerCase().includes(labelText.toLowerCase())) {
-          if (lbl.htmlFor) { const el = document.getElementById(lbl.htmlFor); if (el) return el; }
-          let sib = lbl.nextElementSibling;
-          while (sib) {
-            if (sib.tagName === 'INPUT' || sib.tagName === 'SELECT') return sib;
-            const inp = sib.querySelector('input, select');
-            if (inp) return inp;
-            sib = sib.nextElementSibling;
-          }
-          const par = lbl.parentElement;
-          if (par) { const inp = par.querySelector('input, select'); if (inp && inp.offsetWidth) return inp; }
-        }
-      }
-      return null;
-    }
-
-    const inputs = Array.from(document.querySelectorAll('input, select'));
-
-    const addr1 = findNear('address line 1') ||
-      inputs.find(i => /address.?line.?1|address1/i.test(i.placeholder + i.id + i.name));
-    if (setVal(addr1, data.address1)) results.push(`address1: ${data.address1}`);
-
-    const city = findNear('city') ||
-      inputs.find(i => /\bcity\b/i.test(i.placeholder + i.id + i.name));
-    if (setVal(city, data.city)) results.push(`city: ${data.city}`);
-
-    const zip = findNear('postal') || findNear('zip') ||
-      inputs.find(i => /zip|postal/i.test(i.placeholder + i.id + i.name));
-    if (setVal(zip, data.zip)) results.push(`zip: ${data.zip}`);
-
-    // State / Province dropdown
-    for (const sel of document.querySelectorAll('select')) {
-      const id = (sel.id + sel.name + (sel.getAttribute('aria-label') || '')).toLowerCase();
-      if (/state|province|region/i.test(id)) {
-        const opts   = Array.from(sel.options);
-        const target = data.state.toLowerCase();
-        const match  = opts.find(o => o.text.toLowerCase().includes(target) || target.includes(o.text.toLowerCase()));
-        if (match) {
-          sel.value = match.value;
-          sel.dispatchEvent(new Event('change', { bubbles: true }));
-          results.push(`state: ${match.text}`);
-        }
-        break;
-      }
-    }
-
-    return results;
-  }, { address1: biz.address1 || '', city: biz.city || '', state: biz.state || '', zip: biz.zip || '' });
-
-  if (filled && filled.length) {
-    ok(`Filled via JS: ${filled.join(' | ')}`);
-  } else {
-    warn('JS fill returned nothing — using Playwright selectors');
-    const map = [
-      { sel: 'input[placeholder*="Address line 1" i]', val: biz.address1 },
-      { sel: 'input[placeholder*="City" i]',           val: biz.city },
-      { sel: 'input[placeholder*="ZIP" i]',            val: biz.zip },
-      { sel: 'input[placeholder*="postal" i]',         val: biz.zip },
-    ];
-    for (const { sel, val } of map) {
-      if (!val) continue;
-      try {
-        const el = page.locator(sel).first();
-        if (await el.isVisible({ timeout: 2000 })) {
-          if (!(await el.inputValue().catch(() => ''))) {
-            await el.click();
-            await hd(100, 200);
-            await el.fill(val);
-            ok(`Playwright filled: ${sel} = ${val}`);
-          }
-        }
-      } catch {}
-    }
-  }
-
-  // State dropdown via Playwright (fallback)
-  try {
-    const stateSel = page.locator(
-      '#address-formStateOrProvince, select[name*="state" i], select[name*="province" i], select[id*="state" i], select[id*="province" i]'
-    ).first();
-    if (await stateSel.isVisible({ timeout: 3000 })) {
-      const target = (biz.state || 'North Holland').toLowerCase();
-      const opts   = await stateSel.locator('option').all();
-      let matched  = false;
-      for (const opt of opts) {
-        const txt = (await opt.textContent().catch(() => '')).toLowerCase();
-        if (txt.includes(target) || target.includes(txt)) {
-          await stateSel.selectOption({ value: await opt.getAttribute('value') });
-          ok(`State dropdown → ${await opt.textContent().catch(() => biz.state)}`);
-          matched = true;
-          break;
-        }
-      }
-      if (!matched) {
-        await stateSel.selectOption({ value: 'NH' }).catch(() => {});
-        ok('State → NH (North Holland fallback)');
-      }
-    }
-  } catch (e) { warn(`State dropdown: ${e.message}`); }
-
-  await hd(700, 1200);
-  await shot(page, '10_acct_details_filled');
-  if (context) await saveSession(context, 'post_acct_details');
-
-  step('Scroll + click Next on account details form');
-  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-  await hd(800, 1200);
-  await clickNext(page);
-  await hd(4000, 6000);
-  await pageInfo(page);
-  await shot(page, '10_after_acct_details_next');
-  if (context) await saveSession(context, 'post_acct_details_next');
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -655,10 +402,10 @@ async function fillAccountDetailsForm(page, biz, context) {
 
 async function processAccount(acc, proxyStr, rambler, biz, attemptNumber) {
   resetLog(acc.email);
-  _email = acc.email;
+  _curEmail = acc.email;
 
   console.log('\n' + '═'.repeat(64));
-  console.log(`  🚀  Account    : ${acc.email}`);
+  console.log(`  🚀  Email      : ${acc.email}`);
   console.log(`  📮  Secondary  : ${rambler.email}  (Rambler IMAP)`);
   console.log(`  🌐  Proxy      : ${proxyStr}`);
   console.log(`  📋  Business   : ${biz.businessName} / ${biz.website}`);
@@ -679,583 +426,780 @@ async function processAccount(acc, proxyStr, rambler, biz, attemptNumber) {
     timezoneId: 'America/New_York',
   });
 
-  const page   = await context.newPage();
-  let outcome  = 'failed';
+  const page  = await context.newPage();
+  let outcome = 'failed';
 
   try {
 
-    // ════════════════════════════════════════════════════════════
-    // PHASE 1 — MICROSOFT ACCOUNT LOGIN + SECONDARY EMAIL SETUP
-    // ════════════════════════════════════════════════════════════
+    // ══════════════════════════════════════════════════════════
+    // PHASE 1 — LOGIN
+    // ══════════════════════════════════════════════════════════
 
-    step('Navigate to Microsoft login');
+    step('Navigate to Microsoft login (OAuth URL)');
     await page.goto(MS_LOGIN_URL, { waitUntil: 'domcontentloaded', timeout: 45000 });
     await hd(2000, 3500);
-    await pageInfo(page);
-    await shot(page, '01_login_page');
+    await logPage(page);
 
-    step('Enter Microsoft account email');
+    // ── Step 1: Enter primary email ───────────────────────────
+    step('Enter primary email');
     await hType(page,
       'input[type="email"], input[name="loginfmt"], #i0116',
       acc.email);
-    await hd(600, 1400);
+    await hd(600, 1200);
     await tryClick(page,
-      ['input[type="submit"]', 'button:has-text("Next")', '#idSIButton9'],
-      'Next', 8000);
+      ['input[type="submit"]', '#idSIButton9', 'button:has-text("Next")'],
+      'Next (after email)', 8000);
     await hd(2000, 3500);
-    await pageInfo(page);
+    await logPage(page);
 
+    // ── Step 2: Enter password ────────────────────────────────
     step('Enter password');
     await hType(page,
       'input[type="password"], input[name="passwd"], #i0118',
       acc.password);
-    await hd(700, 1500);
+    await hd(600, 1400);
     await tryClick(page,
-      ['input[type="submit"]', 'button:has-text("Sign in")', 'button:has-text("Next")', '#idSIButton9'],
-      'Sign in', 8000);
+      ['input[type="submit"]', '#idSIButton9', 'button:has-text("Sign in")', 'button:has-text("Next")'],
+      'Sign in (after password)', 8000);
     await hd(3000, 5000);
-    await pageInfo(page);
+    await logPage(page);
     await shot(page, '02_after_password');
 
-    step('Detect page after password');
-    const already = await checkAlreadyUsed(page);
-    if (already.alreadyUsed) {
-      warn(`ALREADY USED — existing secondary: ${already.maskedEmail}`);
-      const auEntry = {
-        email: acc.email, secondary_seen: already.maskedEmail, proxy: proxyStr,
-        time: ts(), status: 'already_used',
-        note: 'Microsoft shows existing secondary — account previously set up',
+    // ── Check already_used ────────────────────────────────────
+    step('Check for already-used secondary email');
+    const alreadyCheck = await checkAlreadyUsed(page);
+    if (alreadyCheck.alreadyUsed) {
+      warn(`ALREADY USED — existing secondary: ${alreadyCheck.maskedEmail}`);
+      const entry = {
+        email: acc.email, secondary_seen: alreadyCheck.maskedEmail,
+        proxy: proxyStr, time: ts(), status: 'already_used',
+        note: 'Account already has secondary email configured',
       };
-      logAlreadyUsed(auEntry);
-      saveDetails({ ...auEntry, secondary_email: already.maskedEmail, session_file: null });
-      appendSessionLog(auEntry);
-      writeIndex(acc.email, {
-        status: 'already_used', proxy: proxyStr, secondary_seen: already.maskedEmail,
-        detected_at: ts(), attempt_number: attemptNumber,
-      });
+      logAlreadyUsed(entry);
+      saveDetails({ ...entry, secondary_email: alreadyCheck.maskedEmail, session_file: null });
+      appendLog(entry);
+      writeIndex(acc.email, { status: 'already_used', proxy: proxyStr,
+        secondary_seen: alreadyCheck.maskedEmail, detected_at: ts(), attempt_number: attemptNumber });
       saveStepLog(acc.email, 'already_used');
       await browser.close();
       return { outcome: 'already_used' };
     }
-    ok('No already-used screen → proceeding to add secondary email');
+    ok('No existing secondary found — proceeding');
 
-    step(`Enter Rambler email as secondary: ${rambler.email}`);
+    // ── Step 3: Enter Rambler as secondary email ──────────────
+    step(`Enter Rambler secondary: ${rambler.email}`);
     await hType(page,
       'input[type="email"], input[type="text"], input[name="Email"], input[name="SessionStateInput"]',
       rambler.email);
-    await hd(800, 1600);
+    await hd(700, 1400);
     await tryClick(page,
-      ['input[type="submit"]', 'button:has-text("Send code")', 'button:has-text("Next")', '#idSIButton9'],
+      ['input[type="submit"]', '#idSIButton9', 'button:has-text("Send code")', 'button:has-text("Next")'],
       'Send code', 8000);
     await hd(2000, 3000);
-    await shot(page, '03_secondary_sent');
+    await shot(page, '03_secondary_email_sent');
 
-    step(`Fetch OTP from ${rambler.email} via Rambler IMAP`);
-    const otpStartedAt = Date.now();
-    const otp = await waitForOtp(rambler.email, rambler.password, otpStartedAt, 3 * 60 * 1000);
-    ok(`OTP received: ${otp}`);
+    // ── Step 4: OTP via Rambler IMAP ─────────────────────────
+    step(`Fetch OTP from ${rambler.email} via IMAP (up to 3 min)`);
+    info('Adding 8s delay before connecting to IMAP...');
+    await sleep(8000); // let the email arrive before polling
+    const otpStart = Date.now();
+    const otp = await waitForOtp(rambler.email, rambler.password, otpStart, 3 * 60 * 1000);
+    ok(`OTP: ${otp}`);
 
     step('Enter OTP');
     await hType(page,
       'input[name="otc"], input[aria-label*="code" i], input[placeholder*="code" i], input[type="tel"], input[type="number"], input[type="text"]',
       otp);
-    await hd(800, 1500);
+    await hd(700, 1400);
     await tryClick(page,
-      ['input[type="submit"]', 'button:has-text("Verify")', 'button:has-text("Next")', 'button:has-text("Sign in")', '#idSIButton9'],
+      ['input[type="submit"]', '#idSIButton9', 'button:has-text("Verify")', 'button:has-text("Next")', 'button:has-text("Sign in")'],
       'Verify OTP', 8000);
     await hd(3000, 5000);
     await shot(page, '04_after_otp');
 
-    step('Handle "Stay signed in" (Phase 1)');
-    for (let i = 0; i < 3; i++) {
-      const visible = await page.locator('#idSIButton9').isVisible({ timeout: 5000 }).catch(() => false);
-      if (visible) {
-        await hd(800, 1500);
+    // ── Step 5: Stay Signed In ────────────────────────────────
+    step('Click Yes / Stay signed in');
+    // Wait up to 10s for the prompt to appear
+    let stayClicked = false;
+    for (let i = 0; i < 5; i++) {
+      const vis = await page.locator('#idSIButton9').isVisible({ timeout: 3000 }).catch(() => false);
+      if (vis) {
+        await hd(700, 1400);
         await page.locator('#idSIButton9').click();
-        ok('Clicked "Stay signed in"');
-        await hd(4000, 6000);
+        ok('Clicked Stay signed in / Yes');
+        stayClicked = true;
         break;
       }
-      await hd(2000, 3000);
+      await hd(1500, 2500);
     }
-    await pageInfo(page);
+    if (!stayClicked) {
+      // Try alternative selectors
+      await tryClick(page,
+        ['button:has-text("Yes")', 'input[value="Yes"]', '[role="button"]:has-text("Yes")'],
+        'Yes (stay signed in fallback)', 5000);
+    }
+
+    // ── Wait for OAuth redirect to ads.microsoft.com ──────────
+    step('Wait for redirect to ads.microsoft.com after stay signed in');
+    info('OAuth redirect in progress — waiting up to 30s for ads.microsoft.com...');
+    try {
+      await page.waitForURL(/ads\.microsoft\.com/, { timeout: 30000 });
+      ok(`Redirected to: ${page.url().split('?')[0]}`);
+    } catch {
+      warn('Redirect timeout — checking current URL');
+      await logPage(page);
+    }
+    await hd(3000, 5000);
+    await logPage(page);
     await shot(page, '05_after_stay_signed_in');
 
-    step('Save post-login session');
-    const postLogin = await saveSession(context, 'post_login');
-    writeIndex(acc.email, {
-      proxy: proxyStr, secondary_email: rambler.email,
-      post_login_session: postLogin.sp, post_login_time: ts(),
-      status: 'post_login', attempt_number: attemptNumber,
-    });
+    // ══════════════════════════════════════════════════════════
+    // PHASE 2 — WEBSITE ENTRY
+    // After the OAuth redirect, ads.microsoft.com shows a single
+    // "Website you want customers to visit" field.
+    // ══════════════════════════════════════════════════════════
 
-    // ════════════════════════════════════════════════════════════
-    // PHASE 2 — MICROSOFT ADS SETUP
-    // ════════════════════════════════════════════════════════════
-
-    step('Navigate to Microsoft Ads');
-    for (let attempt = 1; attempt <= 2; attempt++) {
-      try {
-        await page.goto('https://ads.microsoft.com', { waitUntil: 'domcontentloaded', timeout: 45000 });
-        if (page.url().includes('chrome-error')) throw new Error('chrome-error page');
-        break;
-      } catch (navErr) {
-        warn(`Nav attempt ${attempt}: ${navErr.message.slice(0, 80)}`);
-        if (attempt < 2) await hd(8000, 9000); else throw navErr;
-      }
-    }
-    await hd(3000, 5000);
-    await pageInfo(page);
-    await shot(page, '06_ads_landing');
-
-    step('Handle Ads sign-in flow (up to 10 iterations)');
-    for (let iter = 0; iter < 10; iter++) {
-      const curUrl   = page.url();
-      const curTitle = (await page.title().catch(() => '')).toLowerCase();
-      const bodyText = await page.evaluate(() => document.body?.innerText || '').catch(() => '');
-      info(`[${iter + 1}] ${curUrl.split('?')[0]}  |  ${curTitle}`);
-
-      // ✅ Already on Ads dashboard
-      if (new URL(curUrl).hostname === 'ads.microsoft.com' && !curUrl.includes('/Login')) {
-        ok('On Microsoft Ads — signed in!');
-        break;
-      }
-
-      // Username already exists → sign up for new account
-      if (curUrl.includes('ads.microsoft.com') && /username already exists/i.test(bodyText)) {
-        info('Username already exists → sign up new account');
-        await tryClick(page, [
-          'a:has-text("Sign up for a new Microsoft Advertising account")',
-          'button:has-text("Sign up for a new Microsoft Advertising account")',
-        ], 'Sign up new account', 6000);
-        await hd(4000, 7000);
-        continue;
-      }
-
-      // Public Ads homepage → click Sign in
-      if (curUrl.includes('ads.microsoft.com') &&
-          (bodyText.toLowerCase().includes('grow your business') || bodyText.toLowerCase().includes('create your account'))) {
-        info('Public Ads homepage → Sign in');
-        await tryClick(page, ['a:has-text("Sign in")', 'button:has-text("Sign in")'], 'Sign in', 6000);
-        await hd(3000, 5000);
-        continue;
-      }
-
-      // Continue with Microsoft button
-      const contBtn = await firstVisible(page, [
-        'button:has-text("Continue with Microsoft")',
-        'a:has-text("Continue with Microsoft")',
-      ], 3000);
-      if (contBtn) {
-        await tryClick(page, [contBtn], 'Continue with Microsoft', 6000);
-        await hd(3000, 5000);
-        continue;
-      }
-
-      // Stay signed in
-      if (curTitle.includes('stay signed in')) {
-        await tryClick(page, ['#idSIButton9', 'input[value="Yes"]', 'button:has-text("Yes")'], 'Stay signed in (Yes)', 6000);
-        await hd(4000, 6000);
-        continue;
-      }
-
-      // Account picker → click the tile with "Signed in"
-      const pickerClicked = await page.evaluate((targetEmail) => {
-        const candidates = [
-          ...Array.from(document.querySelectorAll('[role="button"]')),
-          ...Array.from(document.querySelectorAll('div[tabindex="0"]')),
-          ...Array.from(document.querySelectorAll('.table-row')),
-          ...Array.from(document.querySelectorAll('[data-bind]')),
-        ];
-        for (const el of candidates) {
-          const txt = el.textContent || '';
-          if (txt.includes('Signed in') && txt.toLowerCase().includes(targetEmail.split('@')[0].toLowerCase())) {
-            el.click();
-            return `${txt.trim().replace(/\s+/g,' ').slice(0, 60)}`;
-          }
-        }
-        for (const el of candidates) {
-          if ((el.textContent || '').includes('Signed in')) {
-            el.click();
-            return `fallback: ${(el.textContent || '').trim().slice(0, 60)}`;
-          }
-        }
-        return null;
-      }, acc.email);
-
-      if (pickerClicked) {
-        ok(`Account picker clicked: ${pickerClicked}`);
-        await hd(4000, 6000);
-        continue;
-      }
-
-      // Password prompt
-      const passSel = await firstVisible(page, ['input[name="passwd"]', '#i0118', 'input[type="password"]'], 3000);
-      if (passSel) {
-        info('Password prompt → entering password');
-        await hType(page, passSel, acc.password);
-        await tryClick(page, ['input[type="submit"]', 'button:has-text("Sign in")', '#idSIButton9'], 'Sign in', 5000);
-        await hd(5000, 7000);
-        continue;
-      }
-
-      // Email field (if session expired fully)
-      const emailSel = await firstVisible(page, ['input[name="loginfmt"]', '#i0116'], 2000);
-      if (emailSel) {
-        const val = await page.locator(emailSel).first().inputValue().catch(() => '');
-        if (!val) await hType(page, emailSel, acc.email);
-        await tryClick(page, ['input[type="submit"]', '#idSIButton9', 'button:has-text("Next")'], 'Next', 5000);
-        await hd(4000, 6000);
-        continue;
-      }
-
-      // Nothing matched — wait for redirect
-      info('Waiting for redirect...');
-      await hd(4000, 5000);
-    }
-
-    await pageInfo(page);
-    await shot(page, '06_after_ads_signin');
-    step('Save session after Ads sign-in');
-    await saveSession(context, 'post_ads_signin');
-    writeIndex(acc.email, { ads_signin_time: ts() });
-
-    step('Wait for Microsoft Ads to fully load');
-    try { await page.waitForLoadState('networkidle', { timeout: 25000 }); } catch {}
-    await hd(3000, 5000);
-
-    // ── "Tell us about your business" form ────────────────────────
-    step('Wait for "Tell us about your business" form (up to 90s)');
-    try { await page.waitForLoadState('networkidle', { timeout: 20000 }); } catch {}
-    await hd(2000, 3000);
-    await pageInfo(page);
-
-    const bizSel = await firstVisible(page, [
-      'text=Tell us about your business',
-      'text=About your business',
-      'text=Business information',
+    step('Wait for website input field');
+    const websiteSel = await firstVisible(page, [
       'input[placeholder*="https://" i]',
       'input[placeholder*="website" i]',
-    ], 90000);
+      'input[name*="website" i]',
+      'input[type="url"]',
+      'input[id*="website" i]',
+    ], 60000);
 
-    if (bizSel) {
-      ok(`Business form visible: ${bizSel}`);
-      await shot(page, '07_biz_form');
-      await hd(1500, 2500);
-      await fillBusinessForm(page, biz, context);
-    } else {
-      warn('Business form not found — continuing');
-      await shot(page, '07_no_biz_form');
-      await pageInfo(page);
-    }
+    if (!websiteSel) throw new Error('Website input field did not appear within 60s');
+    ok(`Website field found: ${websiteSel}`);
+    await shot(page, '06_website_field');
 
-    step('Save session after business form');
-    await saveSession(context, 'post_biz');
-    writeIndex(acc.email, { post_biz_time: ts() });
+    step(`Fill website: ${biz.website}`);
+    const websiteEl = page.locator(websiteSel).first();
+    await websiteEl.click();
+    await hd(200, 400);
+    // Clear placeholder "https://" and type website
+    await websiteEl.fill('');
+    await hd(150, 300);
+    await websiteEl.type(biz.website, { delay: 60 });
+    ok(`Typed: ${biz.website}`);
+    await hd(500, 800);
 
-    // ── "How can we help you" → Create account ────────────────────
-    step('Wait for "How can we help you" screen');
-    const helpSel = await firstVisible(page, [
-      'text=How can we help',
-      'text=What is your goal',
-      'text=get started',
+    // Wait for the page to start loading website info (spinner appears)
+    // Then wait for the full company form to expand on same page
+    step('Wait for company info form to expand on same page (up to 20s)');
+    info('Waiting for "Getting information from your website..." to finish...');
+    // Wait for either company name field or location dropdown to appear
+    const expandedSel = await firstVisible(page, [
+      'input[placeholder*="business name" i]',
+      'input[placeholder="Enter your business name"]',
+      'input[aria-label*="company name" i]',
+      'input[aria-label*="business name" i]',
+      'select[aria-label*="location" i]',
+      'select[id*="location" i]',
+      'input[id*="business" i]',
     ], 20000);
 
-    if (helpSel) {
-      ok('"How can we help" screen found');
-      await shot(page, '08_how_help');
-      await hd(1500, 2500);
-      const createResult = await page.evaluate(() => {
-        const candidates = [
-          ...Array.from(document.querySelectorAll('[role="button"]')),
-          ...Array.from(document.querySelectorAll('button')),
-          ...Array.from(document.querySelectorAll('label')),
-          ...Array.from(document.querySelectorAll('div[class*="card"]')),
-          ...Array.from(document.querySelectorAll('div[tabindex]')),
-        ];
-        for (const el of candidates) {
-          const txt = (el.textContent || '').toLowerCase();
-          if (txt.includes('create account') && !txt.includes('campaign')) {
+    if (expandedSel) {
+      ok(`Company form expanded (found: ${expandedSel})`);
+      await hd(1000, 2000);
+      await shot(page, '07_company_form_expanded');
+      await fillCompanyForm(page, biz);
+    } else {
+      // Form didn't expand — maybe it's a Next-first flow
+      warn('Company form did not auto-expand — clicking Next to advance');
+      await clickNext(page);
+      await hd(3000, 5000);
+      await logPage(page);
+      await shot(page, '07b_after_website_next');
+      // Now fill the company details page
+      await fillCompanyForm(page, biz);
+    }
+
+    // ── Click Next after filling company form ─────────────────
+    step('Click Next to submit company info');
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await hd(600, 1000);
+    await shot(page, '07_company_form_filled');
+    await clickNext(page);
+    await hd(3000, 5000);
+    await logPage(page);
+    await shot(page, '08_after_company_next');
+
+    // ══════════════════════════════════════════════════════════
+    // PHASE 4 — HOW CAN WE HELP  ("Hello X, how can we help")
+    // Three cards: Create account | Importing from Google Ads | Importing from Meta Ads
+    // Click: Create account
+    // ══════════════════════════════════════════════════════════
+
+    step('Handle "How can we help" — click "Create account"');
+    await hd(1500, 2500);
+    // Look for the Create account card/tile
+    const createAccClicked = await tryClick(page, [
+      'div:has-text("Create account"):not(:has-text("campaign")):not(:has-text("Google")):not(:has-text("Meta"))',
+      '[role="button"]:has-text("Create account")',
+      'button:has-text("Create account")',
+      'a:has-text("Create account")',
+    ], 'Create account tile', 15000);
+
+    if (!createAccClicked) {
+      // JS fallback — find the tile with exactly "Create account" text
+      const r = await page.evaluate(() => {
+        const els = Array.from(document.querySelectorAll('div, button, a, [role="button"]'));
+        for (const el of els) {
+          const txt = (el.textContent || '').trim().replace(/\s+/g,' ');
+          if (/^create account$/i.test(txt) && el.offsetParent) {
             el.click();
-            return el.textContent.trim().replace(/\s+/g,' ').slice(0, 60);
+            return txt;
           }
         }
-        for (const el of candidates) {
-          if ((el.textContent || '').toLowerCase().includes('create account')) {
+        // Broader: any clickable element whose text starts with "Create account"
+        for (const el of els) {
+          const txt = (el.textContent || '').trim();
+          if (/create account/i.test(txt) && !/campaign|google|meta|import/i.test(txt) && el.offsetParent) {
             el.click();
-            return `broad: ${el.textContent.trim().replace(/\s+/g,' ').slice(0, 60)}`;
+            return txt;
           }
         }
         return null;
       });
-      if (createResult) { ok(`"Create account" selected: ${createResult}`); }
-      else { warn('"Create account" not found'); await shot(page, '08_create_account_missing'); }
-      await hd(3000, 5000);
-      await pageInfo(page);
-      await shot(page, '08_after_create_account');
-    } else {
-      info('"How can we help" not found — may already be on next screen');
+      if (r) { ok(`Create account (JS): ${r.slice(0,60)}`); }
+      else    { warn('Create account tile not found — may already be past this screen'); }
     }
+    await hd(3000, 5000);
+    await logPage(page);
+    await shot(page, '09_after_create_account_tile');
 
-    await saveSession(context, 'post_help');
+    // ══════════════════════════════════════════════════════════
+    // PHASE 5 — CHOOSE EXPERIENCE
+    // Two cards: "Create account and campaign" (default selected, left)
+    //            "Create account only" (right) ← we click this
+    // Then click Next
+    // ══════════════════════════════════════════════════════════
 
-    // ── "Create account only" card ────────────────────────────────
     step('Select "Create account only" card');
-    await hd(2000, 3500);
-    await pageInfo(page);
-    await shot(page, '09_campaign_choice');
+    await hd(2000, 3000);
+    await logPage(page);
+    await shot(page, '10_choose_experience');
 
-    const createOnlyResult = await page.evaluate(() => {
+    const createOnlyClicked = await page.evaluate(() => {
+      // Walk all text nodes, find "Create account only"
       const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
       let node;
       while ((node = walker.nextNode())) {
-        if (/create account only/i.test(node.textContent)) {
+        if (/create\s+account\s+only/i.test(node.textContent)) {
           let el = node.parentElement;
+          // Walk up to find the clickable card container
           while (el && el !== document.body) {
-            const style = window.getComputedStyle(el);
             const tag   = el.tagName.toLowerCase();
-            if (tag === 'label' || el.getAttribute('role') === 'radio' ||
-                el.getAttribute('role') === 'button' || el.getAttribute('tabindex') === '0' ||
-                style.cursor === 'pointer') {
+            const role  = el.getAttribute('role') || '';
+            const style = window.getComputedStyle(el);
+            if (tag === 'label' || role === 'radio' || role === 'button' ||
+                el.getAttribute('tabindex') === '0' || style.cursor === 'pointer') {
               el.click();
-              return el.textContent.trim().replace(/\s+/g,' ').slice(0, 80);
+              return `clicked: "${el.textContent.trim().replace(/\s+/g,' ').slice(0,80)}"`;
             }
             el = el.parentElement;
           }
+          // Fallback: click text node's parent directly
           node.parentElement.click();
-          return `parent: ${node.parentElement.textContent.trim().slice(0, 60)}`;
+          return `parent click: "${node.parentElement.textContent.trim().slice(0,60)}"`;
         }
       }
       return null;
     });
 
-    if (createOnlyResult) {
-      ok(`"Create account only" selected: ${createOnlyResult}`);
-      await hd(1500, 2500);
-      await shot(page, '09_create_account_only_selected');
-      step('Click Next to confirm "Create account only"');
-      await clickNext(page);
-      await hd(4000, 6000);
-      try { await page.waitForLoadState('networkidle', { timeout: 15000 }); } catch {}
-      await pageInfo(page);
-      await shot(page, '09_after_create_account_only_next');
+    if (createOnlyClicked) {
+      ok(`"Create account only" selected: ${createOnlyClicked}`);
+      await hd(1000, 2000);
+      await shot(page, '10_create_account_only_selected');
     } else {
-      warn('"Create account only" not found');
-      await shot(page, '09_create_account_only_missing');
-      await pageInfo(page);
+      warn('"Create account only" text not found on this page');
+      await shot(page, '10_create_account_only_missing');
     }
 
-    // ── Account Details form (Address, City, State, ZIP) ──────────
-    step('Check for Account Details form');
+    step('Click Next to confirm "Create account only"');
+    await clickNext(page);
+    await hd(4000, 6000);
+    try { await page.waitForLoadState('networkidle', { timeout: 15000 }); } catch {}
+    await logPage(page);
+    await shot(page, '10_after_create_account_only_next');
+
+    // ══════════════════════════════════════════════════════════
+    // PHASE 6 — ACCOUNT DETAILS
+    // Fields visible from screenshot:
+    //   Legal business name (auto-filled — leave or update)
+    //   Phone number: Netherlands dropdown + number
+    //   Location: Netherlands (greyed out, auto-set)
+    //   Address line 1  ← fill
+    //   Address line 2  ← optional
+    //   City            ← fill
+    //   State or province (dropdown) ← select matching state
+    //   Postal code / ZIP code ← fill
+    //   VAT, Time zone, Currency ← leave
+    // ══════════════════════════════════════════════════════════
+
+    step('Fill Account Details form');
     await hd(2000, 3000);
-    const acctDetailsVisible = await page.locator(
-      'text=Account details, text=Address line 1'
-    ).first().isVisible({ timeout: 15000 }).catch(() => false);
+    await logPage(page);
+    await shot(page, '11_account_details_form');
 
-    if (acctDetailsVisible) {
-      ok('Account Details form found');
-      await shot(page, '10_account_details_form');
-      await fillAccountDetailsForm(page, biz, context);
-    } else {
-      info('Account Details form not visible — skipping');
-    }
+    await fillAccountDetails(page, biz);
 
-    // ── Payment page ──────────────────────────────────────────────
-    step('Check for Payment page');
+    step('Click Next on Account Details');
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await hd(600, 1000);
+    await shot(page, '11_account_details_filled');
+    await clickNext(page);
+    await hd(4000, 6000);
+    try { await page.waitForLoadState('networkidle', { timeout: 15000 }); } catch {}
+    await logPage(page);
+    await shot(page, '11_after_account_details_next');
+
+    // ══════════════════════════════════════════════════════════
+    // PHASE 7 — PAYMENT PAGE
+    // Page shows "Enter your payment method" with a "Set up payment later" link
+    // at the bottom right. Click it → popup → click Yes.
+    // ══════════════════════════════════════════════════════════
+
+    step('Click "Set up payment later"');
     await hd(2000, 3000);
-    const paymentVisible = await page.locator(
-      'text=How would you like to pay, text=Set up payment later, text=Enter your payment method'
-    ).first().isVisible({ timeout: 15000 }).catch(() => false);
+    await shot(page, '12_payment_page');
 
-    if (paymentVisible) {
-      ok('Payment page detected');
-      await shot(page, '11_payment_page');
-
-      // Click "Set up payment later"
-      let payLater = false;
-      for (const sel of [
-        'text=Set up payment later',
-        'a:has-text("Set up payment later")',
-        'button:has-text("Set up payment later")',
-      ]) {
-        try {
-          const el = page.locator(sel).first();
-          await el.waitFor({ state: 'visible', timeout: 8000 });
-          await el.scrollIntoViewIfNeeded();
-          await hd(600, 1000);
-          await el.click();
-          ok(`Clicked "Set up payment later" [${sel}]`);
-          payLater = true;
-          break;
-        } catch {}
-      }
-      if (!payLater) {
-        // JS fallback
-        const r = await page.evaluate(() => {
-          for (const el of document.querySelectorAll('a,button,[role="button"]')) {
-            if (/set\s+up\s+payment\s+later/i.test(el.innerText || '') && el.offsetParent) {
-              el.click(); return el.innerText.trim();
-            }
-          }
-          return null;
-        });
-        if (r) { ok(`JS clicked: ${r}`); payLater = true; }
-      }
-      if (!payLater) warn('"Set up payment later" not found');
-
-      await hd(2000, 3000);
-      await shot(page, '11_payment_dialog');
-
-      // Click Yes on confirmation dialog
-      let yesClicked = false;
-      for (const sel of ['button:has-text("Yes")', 'input[value="Yes"]', '[role="button"]:has-text("Yes")']) {
-        try {
-          const el = page.locator(sel).first();
-          await el.waitFor({ state: 'visible', timeout: 8000 });
-          await hd(500, 800);
-          await el.click();
-          ok(`Clicked "Yes" [${sel}]`);
-          yesClicked = true;
-          break;
-        } catch {}
-      }
-      if (!yesClicked) {
-        const r = await page.evaluate(() => {
-          for (const el of document.querySelectorAll('button,[role="button"]')) {
-            if (/^yes$/i.test((el.innerText || '').trim())) { el.click(); return 'yes'; }
-          }
-          return null;
-        });
-        if (r) { ok('JS clicked Yes'); yesClicked = true; }
-      }
-      if (!yesClicked) warn('"Yes" not found on payment dialog');
-
-      try { await page.locator('button:has-text("Yes")').waitFor({ state: 'hidden', timeout: 8000 }); } catch {}
-      await hd(3000, 5000);
-      await shot(page, '11_after_yes');
-
-      // Click "Create Campaign" button to finalise (if it appears)
-      let campaignClicked = false;
-      for (const sel of [
-        'button:has-text("Create Campaign")',
-        'button:has-text("Create campaign")',
-        'a:has-text("Create Campaign")',
-        '[role="button"]:has-text("Create Campaign")',
-      ]) {
-        try {
-          const el = page.locator(sel).first();
-          await el.waitFor({ state: 'visible', timeout: 8000 });
-          await el.scrollIntoViewIfNeeded();
-          await hd(800, 1200);
-          await el.click();
-          ok(`Clicked "Create Campaign" [${sel}]`);
-          campaignClicked = true;
-          break;
-        } catch {}
-      }
-      if (!campaignClicked) {
-        const r = await page.evaluate(() => {
-          for (const el of document.querySelectorAll('button,a,[role="button"]')) {
-            const t = (el.innerText || '').trim();
-            if (/create\s+campaign/i.test(t) && el.offsetParent) { el.scrollIntoView(); el.click(); return t; }
-          }
-          return null;
-        });
-        if (r) { ok(`JS clicked: ${r}`); campaignClicked = true; }
-      }
-      if (!campaignClicked) info('"Create Campaign" button not visible — continuing');
-
-      await saveSession(context, 'post_payment');
-
-    } else {
-      info('Payment page not detected — skipping payment step');
+    let payLaterDone = false;
+    for (const sel of [
+      'text=Set up payment later',
+      'a:has-text("Set up payment later")',
+      'button:has-text("Set up payment later")',
+      '[role="button"]:has-text("Set up payment later")',
+    ]) {
+      try {
+        const el = page.locator(sel).first();
+        await el.waitFor({ state: 'visible', timeout: 10000 });
+        await el.scrollIntoViewIfNeeded();
+        await hd(500, 900);
+        await el.click();
+        ok(`Clicked "Set up payment later" [${sel}]`);
+        payLaterDone = true;
+        break;
+      } catch {}
     }
+    if (!payLaterDone) {
+      const r = await page.evaluate(() => {
+        for (const el of document.querySelectorAll('a, button, [role="button"]')) {
+          if (/set\s+up\s+payment\s+later/i.test(el.innerText || '') && el.offsetParent) {
+            el.click(); return el.innerText.trim();
+          }
+        }
+        return null;
+      });
+      if (r) { ok(`JS clicked "Set up payment later"`); payLaterDone = true; }
+    }
+    if (!payLaterDone) throw new Error('"Set up payment later" not found on payment page');
 
-    // ── Wait 3 minutes → screenshot ───────────────────────────────
-    step('Waiting 3 minutes for page to fully load');
-    await pageInfo(page);
-    await shot(page, '12_pre_3min_wait');
+    // ── Yes on popup ──────────────────────────────────────────
+    step('Click Yes on "Are you sure you want to set up payment later?" popup');
+    await hd(1500, 2500);
+    await shot(page, '12_payment_popup');
+
+    let yesClicked = false;
+    for (const sel of [
+      'button:has-text("Yes")',
+      'input[value="Yes"]',
+      '[role="button"]:has-text("Yes")',
+    ]) {
+      try {
+        const el = page.locator(sel).first();
+        await el.waitFor({ state: 'visible', timeout: 8000 });
+        await hd(400, 700);
+        await el.click();
+        ok(`Clicked Yes [${sel}]`);
+        yesClicked = true;
+        break;
+      } catch {}
+    }
+    if (!yesClicked) {
+      const r = await page.evaluate(() => {
+        for (const el of document.querySelectorAll('button, [role="button"]')) {
+          if (/^yes$/i.test((el.innerText || '').trim()) && el.offsetParent) {
+            el.click(); return 'yes';
+          }
+        }
+        return null;
+      });
+      if (r) { ok('JS clicked Yes'); yesClicked = true; }
+    }
+    if (!yesClicked) warn('Yes button not found on popup — may have auto-closed');
+
+    // Wait for popup to close
+    try { await page.locator('button:has-text("Yes")').waitFor({ state: 'hidden', timeout: 8000 }); } catch {}
+    await hd(2000, 4000);
+    await logPage(page);
+    await shot(page, '12_after_yes');
+
+    // ══════════════════════════════════════════════════════════
+    // PHASE 8 — WAIT 3 MINUTES + FINAL SCREENSHOT + SAVE SESSION
+    // The campaign creation page should now be loading.
+    // We wait exactly 3 minutes, then screenshot and save.
+    // ══════════════════════════════════════════════════════════
+
+    step('Waiting 3 minutes for final page to fully load');
+    await logPage(page);
+    await shot(page, '13_before_3min_wait');
     info('Sleeping 180 seconds (3 minutes)...');
     await sleep(180_000);
     ok('3-minute wait complete');
 
     step('Take final screenshot → screenshots_accounts/');
-    await pageInfo(page);
-    const finalShotPath = await shot(page, 'FINAL_DASHBOARD', SCREENSHOTS_FINAL);
-    ok(`Final screenshot saved: ${finalShotPath}`);
+    const finalUrl = page.url();
+    await logPage(page);
+    const finalShot = await shot(page, `FINAL_${Date.now()}`, SCREENSHOTS_DIR);
+    ok(`Final screenshot: ${finalShot}`);
 
-    step('Save final session');
-    const finalSession = await saveSession(context, 'FINAL');
-    const { url: finalUrl } = await pageInfo(page);
+    // ── Save session (ONLY NOW, at the very end) ──────────────
+    step('Save session (end of run)');
+    const { sp, cp } = await saveSession(context, 'FINAL');
 
-    // Update all log files
+    // ── Mark success in all log files ─────────────────────────
     writeIndex(acc.email, {
-      status:             'success',
-      proxy:              proxyStr,
-      secondary_email:    rambler.email,
-      session:            finalSession.sp,
-      cookie_file:        finalSession.cp,
-      final_url:          finalUrl,
-      final_screenshot:   finalShotPath,
-      completed_at:       ts(),
-      attempt_number:     attemptNumber,
+      status:           'success',
+      proxy:            proxyStr,
+      secondary_email:  rambler.email,
+      session:          sp,
+      cookie_file:      cp,
+      final_url:        finalUrl,
+      final_screenshot: finalShot,
+      completed_at:     ts(),
+      attempt_number:   attemptNumber,
     });
-
     saveDetails({
       email:           acc.email,
       secondary_email: rambler.email,
       proxy:           proxyStr,
-      session_file:    finalSession.sp,
+      session_file:    sp,
       time:            ts(),
       status:          'success',
       attempt_number:  attemptNumber,
     });
-
-    appendSessionLog({
-      email:           acc.email,
-      secondary_email: rambler.email,
-      proxy:           proxyStr,
-      session:         finalSession.sp,
-      time:            ts(),
-      status:          'success',
-    });
-
+    appendLog({ email: acc.email, secondary_email: rambler.email, proxy: proxyStr,
+      session: sp, time: ts(), status: 'success' });
     saveStepLog(acc.email, 'success');
-    outcome = 'success';
 
-    console.log(`\n  🎉  SUCCESS : ${acc.email}`);
-    console.log(`       Secondary  : ${rambler.email}`);
-    console.log(`       Screenshot : ${finalShotPath}`);
-    console.log(`       Session    : ${finalSession.sp}\n`);
+    outcome = 'success';
+    console.log(`\n  🎉  SUCCESS: ${acc.email}`);
+    console.log(`       Screenshot : ${finalShot}`);
+    console.log(`       Session    : ${sp}\n`);
 
   } catch (err) {
     outcome = 'failed';
     fail(err.message);
-    if (err.stack) info('Stack: ' + err.stack.split('\n').slice(0, 4).join(' | '));
-
-    try { await pageInfo(page); await shot(page, 'ERROR'); } catch {}
-    try { await saveSession(context, 'error'); } catch {}
-
+    if (err.stack) info('Stack: ' + err.stack.split('\n').slice(0,4).join(' | '));
+    try { await logPage(page); await shot(page, 'ERROR'); } catch {}
     writeIndex(acc.email, {
       status: 'failed', error: err.message, proxy: proxyStr,
       secondary_email: rambler.email, last_attempt: ts(), attempt_number: attemptNumber,
     });
-    saveDetails({
-      email: acc.email, secondary_email: rambler.email, proxy: proxyStr,
+    saveDetails({ email: acc.email, secondary_email: rambler.email, proxy: proxyStr,
       session_file: null, time: ts(), status: 'failed',
-      note: err.message, attempt_number: attemptNumber,
-    });
-    appendSessionLog({
-      email: acc.email, proxy: proxyStr, time: ts(), status: 'failed', error: err.message,
-    });
+      note: err.message, attempt_number: attemptNumber });
+    appendLog({ email: acc.email, proxy: proxyStr, time: ts(), status: 'failed', error: err.message });
     saveStepLog(acc.email, 'failed');
-    console.log(`\n  ✗  FAILED: ${acc.email}\n     Error: ${err.message}\n`);
-
+    console.log(`\n  ✗  FAILED: ${acc.email}\n     ${err.message}\n`);
   } finally {
     await browser.close().catch(() => {});
   }
 
   return { outcome };
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FILL COMPANY INFO FORM
+// (same page as website — appears after website auto-loads)
+// Fields: Location, Company/Business Name, Email (leave), Phone, Checkboxes
+// ═══════════════════════════════════════════════════════════════
+
+async function fillCompanyForm(page, biz) {
+  await hd(1000, 2000);
+
+  // ── Location dropdown → ensure Netherlands ────────────────
+  step('Ensure Location = Netherlands');
+  const locationSet = await selectNetherlandsDropdown(page, [
+    'select[aria-label*="location" i]',
+    'select[id*="location" i]',
+    'select[name*="location" i]',
+    'select[aria-label*="country" i]',
+    'select[id*="country" i]',
+  ]);
+  if (!locationSet) {
+    // Check if Netherlands is already shown (might be pre-selected and read-only)
+    const isNl = await page.evaluate(() =>
+      document.body.innerText.toLowerCase().includes('netherlands')
+    );
+    if (isNl) { ok('Netherlands already visible on page'); }
+    else { warn('Location dropdown not found — proceeding'); }
+  }
+
+  // ── Company / Business Name ───────────────────────────────
+  step(`Fill company name: ${biz.businessName}`);
+  const nameResult = await page.evaluate((name) => {
+    for (const inp of document.querySelectorAll('input')) {
+      const ph = (inp.placeholder || '').toLowerCase();
+      const id = (inp.id || '').toLowerCase();
+      const nm = (inp.name || '').toLowerCase();
+      const la = (inp.getAttribute('aria-label') || '').toLowerCase();
+      if ((ph.includes('business name') || ph.includes('company name') ||
+           id.includes('business')      || nm.includes('business')     ||
+           nm.includes('company')       || la.includes('business')     || la.includes('company'))
+          && (inp.offsetWidth || inp.offsetHeight)) {
+        const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+        if (setter) setter.call(inp, name);
+        else inp.value = name;
+        inp.dispatchEvent(new Event('input',  { bubbles: true }));
+        inp.dispatchEvent(new Event('change', { bubbles: true }));
+        return `filled: id="${inp.id}" placeholder="${inp.placeholder}"`;
+      }
+    }
+    return null;
+  }, biz.businessName);
+
+  if (nameResult) {
+    ok(`Company name (JS): ${nameResult}`);
+    // Re-type via Playwright to trigger React events
+    try {
+      const el = page.locator(
+        'input[placeholder*="business name" i], input[placeholder="Enter your business name"], input[aria-label*="business name" i], input[aria-label*="company name" i], input[id*="business" i], input[name*="business" i]'
+      ).first();
+      await el.click({ timeout: 3000 });
+      await hd(150, 300);
+      await el.fill(biz.businessName);
+    } catch {}
+  } else {
+    warn('Company name field not found by JS — trying Playwright');
+    try {
+      await hType(page,
+        'input[placeholder*="business name" i], input[placeholder="Enter your business name"], input[aria-label*="business name" i]',
+        biz.businessName, 5000);
+    } catch { warn('Company name field not found'); }
+  }
+  await hd(500, 900);
+
+  // ── Email field — leave as is (auto-filled with primary email) ─
+  info('Email field: leaving as auto-filled');
+
+  // ── Phone country → Netherlands ───────────────────────────
+  step('Ensure phone country dropdown = Netherlands');
+  await selectNetherlandsPhoneDropdown(page);
+
+  // ── Phone number ──────────────────────────────────────────
+  step(`Fill phone number: ${biz.phone}`);
+  const phoneResult = await page.evaluate((phone) => {
+    for (const inp of document.querySelectorAll('input')) {
+      const ph = (inp.placeholder || '').toLowerCase();
+      const id = (inp.id || '').toLowerCase();
+      const nm = (inp.name || '').toLowerCase();
+      const tp = (inp.type || '').toLowerCase();
+      const la = (inp.getAttribute('aria-label') || '').toLowerCase();
+      if ((tp === 'tel' || ph.includes('phone') || ph.includes('number') ||
+           id.includes('phone') || nm.includes('phone') || la.includes('phone'))
+          && (inp.offsetWidth || inp.offsetHeight)
+          && !inp.value) { // not already filled
+        const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+        if (setter) setter.call(inp, phone);
+        else inp.value = phone;
+        inp.dispatchEvent(new Event('input',  { bubbles: true }));
+        inp.dispatchEvent(new Event('change', { bubbles: true }));
+        return `id="${inp.id}" type="${inp.type}"`;
+      }
+    }
+    return null;
+  }, biz.phone);
+
+  if (phoneResult) {
+    ok(`Phone (JS): ${phoneResult}`);
+    try {
+      const el = page.locator(
+        'input[type="tel"], input[placeholder*="phone" i], input[id*="phone" i], input[name*="phone" i]'
+      ).first();
+      await el.click({ timeout: 3000 });
+      await hd(150, 300);
+      await el.fill(biz.phone);
+    } catch {}
+  } else {
+    warn('Phone field not found by JS — trying Playwright');
+    try {
+      await hType(page,
+        'input[type="tel"], input[placeholder*="phone" i], input[id*="phone" i]',
+        biz.phone, 5000);
+    } catch { warn('Phone field not found'); }
+  }
+  await hd(500, 900);
+
+  // ── Checkboxes: check ALL 3 ───────────────────────────────
+  // 1. Marketing communication
+  // 2. Terms & Conditions
+  // 3. Non-political advertising confirmation
+  step('Check all checkboxes (marketing, T&C, non-political)');
+  try {
+    const boxes = page.locator('input[type="checkbox"]');
+    const cnt   = await boxes.count();
+    info(`Found ${cnt} checkbox(es)`);
+    for (let i = 0; i < cnt; i++) {
+      try {
+        const isChecked = await boxes.nth(i).isChecked();
+        if (!isChecked) {
+          await hd(200, 450);
+          await boxes.nth(i).click();
+          info(`Checked box ${i + 1}`);
+        } else {
+          info(`Box ${i + 1} already checked`);
+        }
+      } catch (e) { warn(`Box ${i + 1} error: ${e.message}`); }
+    }
+  } catch (e) { warn(`Checkboxes: ${e.message}`); }
+  await hd(700, 1200);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FILL ACCOUNT DETAILS FORM
+// Fields from screenshot:
+//   Legal business name (may be pre-filled — leave or update)
+//   Phone number: Netherlands dropdown + number
+//   Location: Netherlands (read-only)
+//   Address line 1, Address line 2, City, State/province, Postal/ZIP, VAT (leave)
+// ═══════════════════════════════════════════════════════════════
+
+async function fillAccountDetails(page, biz) {
+  await hd(1000, 2000);
+
+  // ── Legal business name ───────────────────────────────────
+  // This is pre-filled from the company info step. Leave it unless empty.
+  step('Check/update legal business name');
+  try {
+    const nameEl = page.locator(
+      'input[placeholder*="legal" i], input[aria-label*="legal business" i], input[id*="legal" i], input[name*="legal" i]'
+    ).first();
+    if (await nameEl.isVisible({ timeout: 3000 })) {
+      const cur = await nameEl.inputValue().catch(() => '');
+      if (!cur) {
+        await nameEl.fill(biz.businessName);
+        ok(`Legal business name filled: ${biz.businessName}`);
+      } else {
+        ok(`Legal business name already set: ${cur}`);
+      }
+    }
+  } catch { info('Legal business name field not found — skipping'); }
+
+  // ── Phone country → Netherlands ───────────────────────────
+  step('Ensure phone country = Netherlands (Account Details)');
+  await selectNetherlandsPhoneDropdown(page);
+
+  // ── Phone number (if not already filled) ──────────────────
+  try {
+    const phoneSels = ['input[type="tel"]', 'input[placeholder*="phone" i]', 'input[id*="phone" i]'];
+    for (const s of phoneSels) {
+      const el = page.locator(s).first();
+      if (await el.isVisible({ timeout: 2000 })) {
+        const cur = await el.inputValue().catch(() => '');
+        if (!cur) {
+          await el.fill(biz.phone);
+          ok(`Phone filled: ${biz.phone}`);
+        } else {
+          info(`Phone already set: ${cur}`);
+        }
+        break;
+      }
+    }
+  } catch {}
+  await hd(400, 700);
+
+  // ── Address line 1 ────────────────────────────────────────
+  step(`Fill Address line 1: ${biz.address1}`);
+  await fillFieldByPlaceholderOrLabel(page, [
+    'input[placeholder*="address line 1" i]',
+    'input[aria-label*="address line 1" i]',
+    'input[id*="line1" i]',
+    'input[id*="address1" i]',
+    'input[name*="address1" i]',
+    'input[name*="line1" i]',
+  ], biz.address1);
+
+  // ── City ──────────────────────────────────────────────────
+  step(`Fill City: ${biz.city}`);
+  await fillFieldByPlaceholderOrLabel(page, [
+    'input[placeholder="City"]',
+    'input[placeholder*="city" i]',
+    'input[aria-label*="city" i]',
+    'input[id*="city" i]',
+    'input[name*="city" i]',
+  ], biz.city);
+
+  // ── State or province dropdown ────────────────────────────
+  step(`Select State/Province: ${biz.state}`);
+  try {
+    const stateSel = page.locator(
+      'select[id*="state" i], select[id*="province" i], select[name*="state" i], select[name*="province" i], select[aria-label*="state" i], select[aria-label*="province" i], #address-formStateOrProvince'
+    ).first();
+    if (await stateSel.isVisible({ timeout: 5000 })) {
+      const opts   = await stateSel.locator('option').all();
+      const target = (biz.state || 'North Holland').toLowerCase();
+      let matched  = false;
+      for (const opt of opts) {
+        const txt = (await opt.textContent().catch(() => '')).toLowerCase();
+        if (txt.includes(target) || target.includes(txt.replace(/\s+/g,' ').trim())) {
+          await stateSel.selectOption({ value: await opt.getAttribute('value') });
+          ok(`State → ${await opt.textContent().catch(() => biz.state)}`);
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) {
+        // Try NH (North Holland) or ZH (South Holland)
+        const fallback = /north/i.test(biz.state) ? 'NH' : 'ZH';
+        await stateSel.selectOption({ value: fallback }).catch(() => {});
+        ok(`State → ${fallback} (fallback)`);
+      }
+      await hd(400, 700);
+    }
+  } catch (e) { warn(`State dropdown: ${e.message}`); }
+
+  // ── Postal / ZIP code ─────────────────────────────────────
+  step(`Fill Postal/ZIP code: ${biz.zip}`);
+  await fillFieldByPlaceholderOrLabel(page, [
+    'input[placeholder="Postal code"]',
+    'input[placeholder="ZIP code"]',
+    'input[placeholder*="postal" i]',
+    'input[placeholder*="zip" i]',
+    'input[aria-label*="postal" i]',
+    'input[aria-label*="zip" i]',
+    'input[id*="postal" i]',
+    'input[id*="zip" i]',
+    'input[name*="postal" i]',
+    'input[name*="zip" i]',
+  ], biz.zip);
+
+  await hd(600, 1000);
+}
+
+// Helper: fill a field by trying selectors in order, only if currently empty
+async function fillFieldByPlaceholderOrLabel(page, selectors, value) {
+  if (!value) return;
+  for (const s of selectors) {
+    try {
+      const el = page.locator(s).first();
+      if (await el.isVisible({ timeout: 2000 })) {
+        const cur = await el.inputValue().catch(() => '');
+        if (!cur) {
+          await el.click();
+          await hd(100, 200);
+          await el.fill(value);
+          ok(`Filled [${s.split('[')[1]?.replace(']','') || s}] = ${value}`);
+          return;
+        } else {
+          ok(`Already set: ${cur}`);
+          return;
+        }
+      }
+    } catch {}
+  }
+  warn(`Field not found for value: ${value}`);
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -1266,37 +1210,37 @@ async function processAccount(acc, proxyStr, rambler, biz, attemptNumber) {
   ensureDirs();
 
   console.log('\n╔══════════════════════════════════════════════════════╗');
-  console.log('║   Microsoft Ads Full Automation  —  version11.js    ║');
-  console.log('║   Login (Rambler IMAP) + Ads Setup in one shot      ║');
+  console.log('║   Microsoft Ads One-Shot  —  version11.js           ║');
   console.log('╚══════════════════════════════════════════════════════╝\n');
 
-  // ── Read ALL logs before doing anything ──────────────────────
+  // ── Read ALL logs before doing anything ──────────────────
   const stats = getStats();
-  console.log('📊 Previous run stats (from logs):');
+  console.log('📊 Log stats:');
   console.log(`   ✅ Success      : ${stats.success}`);
   console.log(`   ❌ Failed       : ${stats.failed}`);
   console.log(`   ⚠️  Already used : ${stats.already_used}`);
-  console.log(`   📊 Total logged : ${stats.total}\n`);
+  console.log(`   📊 Total        : ${stats.total}\n`);
 
   const usedRamblers = getUsedRamblers();
   const usedProxies  = getUsedProxies();
-  console.log(`📬 ${usedRamblers.size} Rambler accounts already used as secondary — will not reuse`);
+  console.log(`📬 ${usedRamblers.size} Rambler accounts already used — will not reuse`);
 
-  // ── Load input files ──────────────────────────────────────────
-  const emails    = JSON.parse(fs.readFileSync(EMAILS_FILE, 'utf8'));
-  const proxies   = fs.readFileSync(PROXIES_FILE, 'utf8').split('\n').map(p => p.trim()).filter(Boolean);
-  const ramblers  = parseRamblerFile(RAMBLER_FILE);
-  const bizArr    = (() => { const r = JSON.parse(fs.readFileSync(BUSINESS_FILE, 'utf8')); return Array.isArray(r) ? r : [r]; })();
+  // ── Load input files ──────────────────────────────────────
+  const emails   = JSON.parse(fs.readFileSync(EMAILS_FILE, 'utf8'));
+  const proxies  = fs.readFileSync(PROXIES_FILE, 'utf8').split('\n').map(p => p.trim()).filter(Boolean);
+  const ramblers = parseRamblerFile(RAMBLER_FILE);
+  const bizRaw   = JSON.parse(fs.readFileSync(BUSINESS_FILE, 'utf8'));
+  const bizArr   = Array.isArray(bizRaw) ? bizRaw : [bizRaw];
 
   console.log(`📧 ${emails.length} Microsoft accounts`);
   console.log(`🌐 ${proxies.length} proxies`);
   console.log(`📮 ${ramblers.length} Rambler accounts`);
   console.log(`📋 ${bizArr.length} business entries\n`);
 
-  // Fresh Rambler accounts = those whose email is NOT already a secondary in logs
+  // Fresh Ramblers = those not yet used as secondary
   let freshRamblers = ramblers.filter(r => !usedRamblers.has(r.email.toLowerCase()));
-  if (freshRamblers.length === 0) {
-    console.log('⚠️  All Rambler accounts already used — reusing all');
+  if (!freshRamblers.length) {
+    console.log('⚠️  All Rambler accounts already used — recycling all');
     freshRamblers = [...ramblers];
   }
 
@@ -1310,58 +1254,55 @@ async function processAccount(acc, proxyStr, rambler, biz, attemptNumber) {
   for (let i = 0; i < emails.length; i++) {
     const acc = emails[i];
 
-    // Skip if already done
     if (isCompleted(acc.email)) {
-      console.log(`⏭️  Skipping (already completed): ${acc.email}`);
+      console.log(`⏭️  Skipping (done): ${acc.email}`);
       skipped++;
       continue;
     }
 
     attempted++;
 
-    // ── Pick proxy ──────────────────────────────────────────────
+    // ── Pick proxy ────────────────────────────────────────
     let proxyStr;
     const db = readIndex();
     if (db[acc.email]?.proxy) {
       proxyStr = db[acc.email].proxy;
-      console.log(`♻️  Reusing saved proxy for ${acc.email}`);
+      console.log(`♻️  Reusing proxy: ${proxyStr.split(':').slice(0,2).join(':')}`);
     } else {
-      const available = proxies.filter(p => !usedProxies.has(p));
-      if (available.length > 0) {
-        proxyStr = available[Math.floor(Math.random() * available.length)];
+      const avail = proxies.filter(p => !usedProxies.has(p));
+      if (avail.length > 0) {
+        proxyStr = avail[Math.floor(Math.random() * avail.length)];
         usedProxies.add(proxyStr);
-        console.log(`🆕 Assigned fresh proxy (${available.length} available)`);
+        console.log(`🆕 Fresh proxy (${avail.length} available)`);
       } else {
         proxyStr = proxies[Math.floor(Math.random() * proxies.length)];
-        console.log('⚠️  All proxies exhausted — using random fallback');
+        console.log('⚠️  All proxies used — random fallback');
       }
     }
 
-    // ── Pick fresh Rambler account ──────────────────────────────
+    // ── Pick fresh Rambler ────────────────────────────────
     if (ramblerIdx >= freshRamblers.length) {
-      console.log('⚠️  Ran out of fresh Rambler accounts — recycling from start');
+      console.log('⚠️  Rambler list exhausted — recycling');
       ramblerIdx = 0;
     }
     const rambler = freshRamblers[ramblerIdx++];
     usedRamblers.add(rambler.email.toLowerCase());
 
-    // ── Pick business (round-robin by position) ─────────────────
+    // ── Pick business (round-robin) ───────────────────────
     const biz = bizArr[i % bizArr.length];
 
-    // ── Run the full combined flow ───────────────────────────────
+    // ── Run ───────────────────────────────────────────────
     const { outcome } = await processAccount(acc, proxyStr, rambler, biz, attempted);
 
     if      (outcome === 'success')      successCount++;
     else if (outcome === 'already_used') alreadyUsedCount++;
     else                                 failCount++;
 
-    // Human gap between accounts
     const gap = Math.floor(Math.random() * 6000) + 8000;
-    console.log(`\n⏳ Waiting ${(gap / 1000).toFixed(1)}s before next account...\n`);
+    console.log(`\n⏳ Waiting ${(gap/1000).toFixed(1)}s before next account...\n`);
     await sleep(gap);
   }
 
-  // ── Final summary ─────────────────────────────────────────────
   console.log('\n╔══════════════════════════════════════════════════════╗');
   console.log('║                   RUN COMPLETE                      ║');
   console.log('╠══════════════════════════════════════════════════════╣');
@@ -1371,10 +1312,8 @@ async function processAccount(acc, proxyStr, rambler, biz, attemptNumber) {
   console.log(`║  ⏭️  Skipped       : ${String(skipped).padEnd(32)}║`);
   console.log(`║  📊 Attempted     : ${String(attempted).padEnd(32)}║`);
   console.log('╚══════════════════════════════════════════════════════╝\n');
-  console.log('📁 logs/account_index.json   — account status + sessions');
-  console.log('📁 logs/details.txt          — human-readable run log');
-  console.log('📁 logs/already_used.txt     — already-configured accounts');
-  console.log('📁 sessions/                 — browser storage states');
-  console.log('📁 screenshots_accounts/     — final dashboard screenshots\n');
+  console.log('📁 screenshots_accounts/   — final dashboard screenshots');
+  console.log('📁 logs/account_index.json — account status');
+  console.log('📁 sessions/               — saved browser sessions\n');
 
 })();
