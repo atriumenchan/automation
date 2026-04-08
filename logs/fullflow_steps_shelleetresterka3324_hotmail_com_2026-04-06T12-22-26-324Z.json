@@ -1,0 +1,106 @@
+{
+  "email": "shelleetresterka3324@hotmail.com",
+  "status": "failed",
+  "steps": [
+    {
+      "n": 1,
+      "t": "2026-04-06T12:22:19.401Z",
+      "msg": "Launch browser"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:22:19.823Z",
+      "msg": "Navigate to Microsoft login"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:22:25.653Z",
+      "msg": "  → URL  : https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:22:25.653Z",
+      "msg": "  → Title: Sign in to your account"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:22:25.849Z",
+      "msg": "  → Screenshot → logs/screenshots/shelleetresterka3324_hotmail_com_login_page_2026-04-06T12-22-25-653Z.png"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-06T12:22:25.849Z",
+      "msg": "Phase 1 — Microsoft login"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-06T12:22:25.849Z",
+      "msg": "Dismiss account picker"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:22:25.880Z",
+      "msg": "Enter email"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:22:26.034Z",
+      "msg": "  → Screenshot → logs/screenshots/shelleetresterka3324_hotmail_com_email_field_missing_2026-04-06T12-22-25-885Z.png"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:22:26.035Z",
+      "msg": "  → URL  : https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:22:26.035Z",
+      "msg": "  → Title: Sign in to your account"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:22:26.037Z",
+      "msg": "  → Page body: Trying to sign you in Cancel Terms of use Privacy & cookies ..."
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:22:26.038Z",
+      "msg": "ERROR — diagnostics"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:22:26.038Z",
+      "msg": "  ✗  Email field not found — account picker may still be showing"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:22:26.038Z",
+      "msg": "  → Stack: Error: Email field not found — account picker may still be showing |     at phaseLogin (C:\\Users\\ADMEXO\\Downloads\\automation profile\\full_flow.js:285:11) |     at async processAccount (C:\\Users\\ADMEXO\\Downloads\\automation profile\\full_flow.js:659:5) |     at async C:\\Users\\ADMEXO\\Downloads\\automation profile\\full_flow.js:831:20"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:22:26.038Z",
+      "msg": "  → URL  : https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:22:26.038Z",
+      "msg": "  → Title: Sign in to your account"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:22:26.204Z",
+      "msg": "  → Screenshot → logs/screenshots/shelleetresterka3324_hotmail_com_error_2026-04-06T12-22-26-039Z.png"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:22:26.210Z",
+      "msg": "  → Page body: Trying to sign you in Cancel Terms of use Privacy & cookies ..."
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:22:26.324Z",
+      "msg": "  ✅ Session saved: sessions\\shelleetresterka3324_hotmail_com_error_2026-04-06T12-22-26-214Z.json (9 cookies)"
+    }
+  ]
+}

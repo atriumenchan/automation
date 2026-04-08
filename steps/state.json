@@ -1,0 +1,31 @@
+{
+  "account": "dawitcarraf10537@hotmail.com",
+  "password": "dawitykim26108",
+  "rambler": {
+    "email": "ivanova.sb2b5@lenta.ru",
+    "password": "q3AUdI2LH24w"
+  },
+  "biz": {
+    "website": "https://www.whoppah.com/",
+    "businessName": "Whoppah",
+    "email": "info@whoppah.com",
+    "address1": "Prinsengracht 769",
+    "address2": "",
+    "city": "Amsterdam",
+    "state": "North Holland",
+    "zip": "1017 JZ",
+    "phone": "0208200000",
+    "country": "Netherlands"
+  },
+  "proxy": "nl.decodo.com:10289:spqrub6gnk:2I77ud0zaanF_mxbHR",
+  "session": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\dawitcarraf10537_hotmail_com_step_s14b_2026-04-07T20-25-11-731Z.json",
+  "last_step": 8,
+  "last_step_name": "Look at current page",
+  "last_step_status": "failed",
+  "started_at": "2026-04-07T19:21:55.553Z",
+  "updated_at": "2026-04-07T20:41:03.009Z",
+  "last_url": "about:blank",
+  "last_title": "?",
+  "last_screenshot": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\steps\\screenshots\\step8_ERROR_2026-04-07T20-39-03-646Z.png",
+  "last_error": "page.screenshot: Target page, context or browser has been closed"
+}

@@ -1,0 +1,383 @@
+{
+  "angellambv1111693@hotmail.com": {
+    "status": "manual_complete",
+    "note": "Profile already created — do not run automator on this account",
+    "proxy": "nl.decodo.com:10116:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-02T15:07:46.997Z",
+    "attempt_number": 1
+  },
+  "lakeshabielawskidu221333@hotmail.com": {
+    "status": "success",
+    "error": "Action not permitted. Message: `Your current free account CreateInbox feature limit Monthly Count has been exceeded. Upgrade your account to increase usage and abilities. Current value = >= 30. Plan limit = 30`. Please upgrade your account. View your account dashboard at https://app.mailslurp.com/login/. For more usage see pricing page . For more help contact support on contact@mailslurp.dev",
+    "last_attempt": "2026-04-02T09:11:13.545Z",
+    "attempt_number": 2,
+    "proxy": "nl.decodo.com:10009:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "session": "sessions/lakeshabielawskidu221333_hotmail_com_2026-04-02T09-15-16-095Z.json",
+    "cookie_file": "sessions/lakeshabielawskidu221333_hotmail_com_2026-04-02T09-15-16-095Z_cookies.json",
+    "secondary_email": "1ccd7d09-880a-438d-8672-b66ceaaff93b@mailslurp.xyz",
+    "created_at": "2026-04-02T09:15:17.210Z",
+    "final_url": "https://login.live.com/ppsecure/post.srf?lc=1033&username=lakeshabielawskidu221333%40hotmail.com&client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&mkt=EN-US&opid=C52702151BED9CC1&opidt=1775121261&uaid=66a73785d202420ead46cb7d044187cd"
+  },
+  "keidricksharplessaf1303@hotmail.com": {
+    "proxy": "nl.decodo.com:10133:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "session": "sessions/keidricksharplessaf1303_hotmail_com_2026-04-02T12-31-07-801Z.json",
+    "cookie_file": "sessions/keidricksharplessaf1303_hotmail_com_2026-04-02T12-31-07-801Z_cookies.json",
+    "secondary_email": "4e5869e7-daf6-4f9a-b01f-97d66f435933@mailslurp.world",
+    "created_at": "2026-04-02T12:31:08.866Z",
+    "status": "success",
+    "attempt_number": 2,
+    "final_url": "https://login.live.com/ppsecure/post.srf?lc=1033&username=keidricksharplessaf1303%40hotmail.com&client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&mkt=EN-US&opid=DA28E3AA4075E7F6&opidt=1775133014&uaid=52ae2c233afd42efa89279368fa2c119"
+  },
+  "deannaschaferd37161@hotmail.com": {
+    "status": "signin_blocked",
+    "error": "page.goto: Target page, context or browser has been closed\nCall log:\n  - navigating to \"https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true\", waiting until \"domcontentloaded\"\n",
+    "last_attempt": "2026-04-02T17:22:46.946Z",
+    "attempt_number": 1,
+    "proxy": "nl.decodo.com:10245:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "note": "No password field after email"
+  },
+  "selenabasquind149685@hotmail.com": {
+    "status": "signin_blocked",
+    "error": "Could not find password field with any selector",
+    "proxy": "nl.decodo.com:10184:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-02T17:23:10.420Z",
+    "attempt_number": 2,
+    "note": "No password field after email"
+  },
+  "katonyambumwaeft28226@hotmail.com": {
+    "status": "signin_blocked",
+    "error": "page.goto: Target page, context or browser has been closed\nCall log:\n  - navigating to \"https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true\", waiting until \"domcontentloaded\"\n",
+    "proxy": "nl.decodo.com:10232:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-02T17:28:26.821Z",
+    "attempt_number": 1,
+    "note": "No password field after email"
+  },
+  "morriceatwoodd1518@hotmail.com": {
+    "status": "signin_blocked",
+    "error": "page.goto: Target page, context or browser has been closed\nCall log:\n  - navigating to \"https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true\", waiting until \"domcontentloaded\"\n",
+    "proxy": "nl.decodo.com:10129:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-02T17:28:51.903Z",
+    "attempt_number": 2,
+    "note": "No password field after email"
+  },
+  "terrarubita174382@hotmail.com": {
+    "status": "success",
+    "error": "OTP not found after 3 poll attempts",
+    "proxy": "nl.decodo.com:10269:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-02T17:46:29.035Z",
+    "attempt_number": 1,
+    "session": "sessions/terrarubita174382_hotmail_com_2026-04-02T18-49-16-093Z.json",
+    "cookie_file": "sessions/terrarubita174382_hotmail_com_2026-04-02T18-49-16-093Z_cookies.json",
+    "secondary_email": "0f5db80e-bd7e-4ca1-a587-91785620e623@mailslurp.xyz",
+    "inbox_id": "0f5db80e-bd7e-4ca1-a587-91785620e623",
+    "created_at": "2026-04-02T18:49:17.105Z",
+    "final_url": "https://login.live.com/oauth20_authorize.srf?uaid=bc83e3e5b1f94d45b2a802d8392e833c&client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&opid=2FA5E401F5EDE790&mkt=EN-US&opidt=1775155749"
+  },
+  "trevonsannidu265076@hotmail.com": {
+    "status": "success",
+    "error": "Could not find password field with any selector",
+    "proxy": "nl.decodo.com:10154:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-02T17:46:54.835Z",
+    "attempt_number": 2,
+    "session": "sessions/trevonsannidu265076_hotmail_com_2026-04-02T18-51-14-441Z.json",
+    "cookie_file": "sessions/trevonsannidu265076_hotmail_com_2026-04-02T18-51-14-441Z_cookies.json",
+    "secondary_email": "98f3a7ff-aa5c-481b-9cf1-5a1e9917dfb1@mailslurp.xyz",
+    "inbox_id": "98f3a7ff-aa5c-481b-9cf1-5a1e9917dfb1",
+    "created_at": "2026-04-02T18:51:14.972Z",
+    "final_url": "https://login.live.com/ppsecure/post.srf?lc=1033&username=trevonsannidu265076%40hotmail.com&client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&mkt=EN-US&opid=9413E7609A749661&opidt=1775155823&uaid=7d9b6565460a4927b5b459644a301434"
+  },
+  "courtneyloughlindu233846@hotmail.com": {
+    "proxy": "nl.decodo.com:10102:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "session": "sessions/courtneyloughlindu233846_hotmail_com_2026-04-02T18-53-11-807Z.json",
+    "cookie_file": "sessions/courtneyloughlindu233846_hotmail_com_2026-04-02T18-53-11-807Z_cookies.json",
+    "secondary_email": "b68e5471-d37c-4373-85bf-403de1dd1a88@mailslurp.net",
+    "inbox_id": "b68e5471-d37c-4373-85bf-403de1dd1a88",
+    "created_at": "2026-04-02T18:53:12.329Z",
+    "status": "success",
+    "attempt_number": 3,
+    "final_url": "https://login.live.com/ppsecure/post.srf?lc=1033&username=courtneyloughlindu233846%40hotmail.com&client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&mkt=EN-US&opid=C034C40832F05A08&opidt=1775155937&uaid=d36f3500a1844ad382ebae67357da32c"
+  },
+  "imeldachand166812@hotmail.com": {
+    "proxy": "nl.decodo.com:10275:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "session": "sessions/imeldachand166812_hotmail_com_2026-04-02T18-55-15-820Z.json",
+    "cookie_file": "sessions/imeldachand166812_hotmail_com_2026-04-02T18-55-15-820Z_cookies.json",
+    "secondary_email": "a945bfdf-b8cf-4937-83e6-dbbe1b8f876b@tempsmtp.com",
+    "inbox_id": "a945bfdf-b8cf-4937-83e6-dbbe1b8f876b",
+    "created_at": "2026-04-02T18:55:16.506Z",
+    "status": "success",
+    "attempt_number": 4,
+    "final_url": "https://login.live.com/ppsecure/post.srf?lc=1033&username=imeldachand166812%40hotmail.com&client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&mkt=EN-US&opid=88CDF9428B331BDE&opidt=1775156062&uaid=69fd8fa49abd43a59f469a9b96a17059"
+  },
+  "francismarchewkaft204890@hotmail.com": {
+    "proxy": "nl.decodo.com:10177:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "session": "sessions/francismarchewkaft204890_hotmail_com_2026-04-02T18-57-13-203Z.json",
+    "cookie_file": "sessions/francismarchewkaft204890_hotmail_com_2026-04-02T18-57-13-203Z_cookies.json",
+    "secondary_email": "60827730-61fa-4ff4-84f2-3387889518b0@mailslurp.net",
+    "inbox_id": "60827730-61fa-4ff4-84f2-3387889518b0",
+    "created_at": "2026-04-02T18:57:13.776Z",
+    "status": "success",
+    "attempt_number": 5,
+    "final_url": "https://login.live.com/ppsecure/post.srf?lc=1033&username=francismarchewkaft204890%40hotmail.com&client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&mkt=EN-US&opid=2043E92C3B178CF1&opidt=1775156179&uaid=874dc5b184254afeb9afb615d960d52f"
+  },
+  "sarabridgesaf11477@hotmail.com": {
+    "proxy": "nl.decodo.com:10195:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "session": "sessions/sarabridgesaf11477_hotmail_com_2026-04-02T18-59-12-387Z.json",
+    "cookie_file": "sessions/sarabridgesaf11477_hotmail_com_2026-04-02T18-59-12-387Z_cookies.json",
+    "secondary_email": "707ef5ca-a611-4142-9d3c-14de2b7caecb@mailslurp.xyz",
+    "inbox_id": "707ef5ca-a611-4142-9d3c-14de2b7caecb",
+    "created_at": "2026-04-02T18:59:12.881Z",
+    "status": "success",
+    "attempt_number": 6,
+    "final_url": "https://login.live.com/ppsecure/post.srf?lc=1033&username=sarabridgesaf11477%40hotmail.com&client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&mkt=EN-US&opid=E09276C9B66D688E&opidt=1775156299&uaid=9fe3a916868c40fa81392ca04dd6ca72"
+  },
+  "kareemkummft298572@hotmail.com": {
+    "proxy": "nl.decodo.com:10287:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "session": "sessions/kareemkummft298572_hotmail_com_2026-04-02T19-01-06-202Z.json",
+    "cookie_file": "sessions/kareemkummft298572_hotmail_com_2026-04-02T19-01-06-202Z_cookies.json",
+    "secondary_email": "0a5ca771-6fb1-4470-bdde-b7cdec669d8e@mailslurp.info",
+    "inbox_id": "0a5ca771-6fb1-4470-bdde-b7cdec669d8e",
+    "created_at": "2026-04-02T19:01:06.736Z",
+    "status": "success",
+    "attempt_number": 7,
+    "final_url": "https://login.live.com/ppsecure/post.srf?lc=1033&username=kareemkummft298572%40hotmail.com&client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&mkt=EN-US&opid=0151BD5C36F1B0F0&opidt=1775156415&uaid=568de86fc1064c8f96dce61f1b60ef74"
+  },
+  "travisgalyonaf182012@hotmail.com": {
+    "status": "already_used",
+    "error": "Account already has secondary email set up (63*****@mailslurp) — marking as already_used",
+    "proxy": "nl.decodo.com:10124:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-06T12:30:00.891Z",
+    "attempt_number": 1,
+    "note": "Account already has secondary email set up"
+  },
+  "oscarneelyd3196@hotmail.com": {
+    "status": "success",
+    "error": "Could not find OTP field with any selector",
+    "proxy": "nl.decodo.com:10249:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-07T17:51:34.107Z",
+    "attempt_number": 1,
+    "started_at": "2026-04-07T18:07:12.406Z",
+    "secondary_email": "gorbunova-gy5oh@rambler.ua",
+    "session": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\oscarneelyd3196_hotmail_com_FINAL_2026-04-07T18-09-41-768Z.json",
+    "login_time": "2026-04-07T18:08:13.520Z",
+    "restore_status": "success",
+    "biz_email": "support@valyuu.com",
+    "biz_name": "Valyuu",
+    "final_url": "https://ads.microsoft.com/",
+    "completed_at": "2026-04-07T18:09:42.182Z"
+  },
+  "joycelangeka304490@hotmail.com": {
+    "status": "failed",
+    "error": "tigrmail: Request failed with status code 429",
+    "proxy": "nl.decodo.com:10084:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-06T12:05:44.392Z"
+  },
+  "gfggmisarexforddu2050@hotmail.com": {
+    "status": "success",
+    "error": "page.goto: Timeout 40000ms exceeded.\nCall log:\n  - navigating to \"https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985&prompt=select_account&lc=1033&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true\", waiting until \"domcontentloaded\"\n",
+    "last_attempt": "2026-04-06T12:19:03.839Z",
+    "proxy": "nl.decodo.com:10216:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "started_at": "2026-04-07T18:18:05.412Z",
+    "failed_at": "2026-04-07T18:14:28.177Z",
+    "secondary_email": "petrovskaiahj6re@autorambler.ru",
+    "session": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\gfggmisarexforddu2050_hotmail_com_FINAL_2026-04-07T18-21-58-417Z.json",
+    "login_time": "2026-04-07T18:19:10.542Z",
+    "restore_status": "success",
+    "biz_email": "info@itsaboutromi.com",
+    "biz_name": "It's About RoMi",
+    "final_url": "https://login.live.com/oauth20_authorize.srf?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&scope=openid+profile&redirect_uri=https%3a%2f%2fads.microsoft.com%2fLogin%2fMsa&response_type=code+id_token&state=OpenIdConnect.AuthenticationProperties%3dMuI9kQCGp0bAS92cfWlN6Y0KoWbn9-5ixZQT28d2MhIcX0DLFRLfTWzYr3erh_Bg4SlBj3nObA7dkjgJ7ftsCKK9dte-gY9H61QTHwZSmB5GDc2VUO_w5fuLBjxmIfqyAqFjp1v0hw3c53WUm9uLR9BRY3U7j33GGK29UcN3PTmtr1ZYZb36rFKYtaMYsPCJ6q7dS3teBP3ifHdd2XxVrpbtJm1pR19W35E3OXgRkBFQEiuGgVjoSrFaFAX9WgXWMbHy7tSuNEvvqLz30v0x6S1HdNgvQsepA4pvw7UQpA57YLyA&response_mode=form_post&nonce=639111827499752943.YWFhZTQ4YTgtMTUyMC00NDU3LWExZjktNzNiNDg2YmU4ZGVlY2RhYzI4OGItNjQxOC00ZGNiLWE1YWQtZDQxNjkyYWZlMmQ4&x-client-SKU=ID_NET461&x-client-Ver=6.6.0.0&uaid=fb60d23db1244e76b93fbd920968f9c4&msproxy=1&issuer=mso&tenant=common&ui_locales=en-US&epctrc=Xed4gvLMr2faSVF0zxJUhcOORNJi5RxDqqorQWjshls%3d5%3a1%3aCANARY%3amfUyCcvq7%2b7%2fP5%2fPJH15NKZaB5ej5NccuFgDIx%2bwmyY%3d&epct=PAQABDgEAAACvnsHKEvvRQb3Bz3Qc7wnaRXZvU3RzQXJ0aWZhY3RzCAAAAAAA-6ziE37bza2zJZXqkGXtozen7QmDNDojzvvmH4lt0FNrubgEXCddoKOOWDbo8F4IeBHckWk21GMcQMoam_tu8JJwDwQgMBcpgVGILpj4f17IRrihT_BTl4Kd5OqvfGd0j8LQTEkbTb5WczOkrs0SLmLvZeiu9USV_Daj0JSPFvjEOpSZcYvP97XDjJcqNINOMNLluG49XOFY54F8-FjyfyAA&jshs=2&jsh=&jshp=&username=gfggmisarexforddu2050%40hotmail.com&login_hint=gfggmisarexforddu2050%40hotmail.com",
+    "completed_at": "2026-04-07T18:21:58.720Z"
+  },
+  "dawitcarraf10537@hotmail.com": {
+    "status": "failed",
+    "error": "page.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#i0118,input[name=\"passwd\"],input[type=\"password\"]')\n    - locator resolved to <input id=\"i0118\" name=\"passwd\" tabindex=\"-1\" type=\"password\" aria-hidden=\"true\" class=\"moveOffScreen\" data-bind=\"moveOffScreen, textInput: passwordBrowserPrefill\"/>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div id=\"footerLinks\" data-bind=\"externalCss: { 'footer-links': true }\" class=\"footerNode text-secondary footer-links ext-footer-links\">…</div> from <div id=\"footer\" role=\"contentinfo\" class=\"footer ext-footer\" data-bind=\"↵        externalCss: {↵            'footer': true,↵            'has-background': !$page.useDefaultBackground() && $page.showFooter(),↵            'background-always-visible': $page.backgroundLogoUrl }\">…</div> subtree intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div id=\"footerLinks\" data-bind=\"externalCss: { 'footer-links': true }\" class=\"footerNode text-secondary footer-links ext-footer-links\">…</div> from <div id=\"footer\" role=\"contentinfo\" class=\"footer ext-footer\" data-bind=\"↵        externalCss: {↵            'footer': true,↵            'has-background': !$page.useDefaultBackground() && $page.showFooter(),↵            'background-always-visible': $page.backgroundLogoUrl }\">…</div> subtree intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    57 × waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <div id=\"footerLinks\" data-bind=\"externalCss: { 'footer-links': true }\" class=\"footerNode text-secondary footer-links ext-footer-links\">…</div> from <div id=\"footer\" role=\"contentinfo\" class=\"footer ext-footer\" data-bind=\"↵        externalCss: {↵            'footer': true,↵            'has-background': !$page.useDefaultBackground() && $page.showFooter(),↵            'background-always-visible': $page.backgroundLogoUrl }\">…</div> subtree intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n",
+    "last_attempt": "2026-04-07T17:52:30.957Z",
+    "proxy": "nl.decodo.com:10289:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "attempt_number": 3,
+    "started_at": "2026-04-07T19:12:49.993Z",
+    "secondary_email": "poliakova_qs258@rambler.ua",
+    "session": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\dawitcarraf10537_hotmail_com_post_login_2026-04-07T19-13-14-194Z.json",
+    "login_time": "2026-04-07T19:13:14.318Z",
+    "failed_at": "2026-04-07T19:13:57.745Z"
+  },
+  "stephainerichardsak5765@hotmail.com": {
+    "status": "failed",
+    "error": "Email field not found — account picker may still be showing",
+    "last_attempt": "2026-04-06T12:19:42.614Z",
+    "proxy": "nl.decodo.com:10158:spqrub6gnk:2I77ud0zaanF_mxbHR"
+  },
+  "nanettemcgawdu23545@hotmail.com": {
+    "status": "failed",
+    "error": "Email field not found — account picker may still be showing",
+    "last_attempt": "2026-04-06T12:20:03.297Z",
+    "proxy": "nl.decodo.com:10224:spqrub6gnk:2I77ud0zaanF_mxbHR"
+  },
+  "shirleycabusft2993@hotmail.com": {
+    "status": "failed",
+    "error": "Email field not found — account picker may still be showing",
+    "last_attempt": "2026-04-06T12:20:22.063Z",
+    "proxy": "nl.decodo.com:10095:spqrub6gnk:2I77ud0zaanF_mxbHR"
+  },
+  "francinezellarsft26483@hotmail.com": {
+    "status": "failed",
+    "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true\", waiting until \"domcontentloaded\"\n",
+    "last_attempt": "2026-04-07T17:53:44.950Z",
+    "proxy": "nl.decodo.com:10256:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "attempt_number": 7
+  },
+  "dontiahawkinsd1380@hotmail.com": {
+    "status": "failed",
+    "error": "Email field not found — account picker may still be showing",
+    "last_attempt": "2026-04-06T12:20:56.714Z",
+    "proxy": "nl.decodo.com:10011:spqrub6gnk:2I77ud0zaanF_mxbHR"
+  },
+  "shonnacorralizaka36241@hotmail.com": {
+    "status": "failed",
+    "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true\", waiting until \"domcontentloaded\"\n",
+    "last_attempt": "2026-04-07T17:54:39.831Z",
+    "proxy": "nl.decodo.com:10030:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "attempt_number": 9
+  },
+  "joleerothmanta1631@hotmail.com": {
+    "status": "failed",
+    "error": "page.goto: Target page, context or browser has been closed\nCall log:\n  - navigating to \"https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true\", waiting until \"domcontentloaded\"\n",
+    "last_attempt": "2026-04-07T17:55:13.385Z",
+    "proxy": "nl.decodo.com:10063:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "attempt_number": 10
+  },
+  "andressandraft2374@hotmail.com": {
+    "status": "failed",
+    "error": "Email field not found — account picker may still be showing",
+    "last_attempt": "2026-04-06T12:21:51.329Z",
+    "proxy": "nl.decodo.com:10188:spqrub6gnk:2I77ud0zaanF_mxbHR"
+  },
+  "naomipeacockka3480@hotmail.com": {
+    "status": "failed",
+    "error": "page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n  - navigating to \"https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true\", waiting until \"domcontentloaded\"\n",
+    "last_attempt": "2026-04-07T17:55:51.699Z",
+    "proxy": "nl.decodo.com:10036:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "attempt_number": 12
+  },
+  "shelleetresterka3324@hotmail.com": {
+    "status": "failed",
+    "error": "page.goto: Target page, context or browser has been closed\nCall log:\n  - navigating to \"https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true\", waiting until \"domcontentloaded\"\n",
+    "last_attempt": "2026-04-07T17:56:23.528Z",
+    "proxy": "nl.decodo.com:10127:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "attempt_number": 13
+  },
+  "leonaakyold10964@hotmail.com": {
+    "status": "failed",
+    "error": "page.goto: Target page, context or browser has been closed\nCall log:\n  - navigating to \"https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true\", waiting until \"domcontentloaded\"\n",
+    "last_attempt": "2026-04-07T17:56:39.197Z",
+    "proxy": "nl.decodo.com:10229:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "attempt_number": 14
+  },
+  "rosalindamartzaf181079@hotmail.com": {
+    "status": "failed",
+    "error": "Email field not found — account picker may still be showing",
+    "last_attempt": "2026-04-06T12:23:07.331Z",
+    "proxy": "nl.decodo.com:10121:spqrub6gnk:2I77ud0zaanF_mxbHR"
+  },
+  "kanenadleraf11134@hotmail.com": {
+    "status": "failed",
+    "error": "Email field not found — account picker may still be showing",
+    "last_attempt": "2026-04-06T12:23:24.247Z",
+    "proxy": "nl.decodo.com:10149:spqrub6gnk:2I77ud0zaanF_mxbHR"
+  },
+  "loisragerak23994@hotmail.com": {
+    "status": "failed",
+    "error": "Email field not found — account picker may still be showing",
+    "last_attempt": "2026-04-06T12:23:46.261Z",
+    "proxy": "nl.decodo.com:10152:spqrub6gnk:2I77ud0zaanF_mxbHR"
+  },
+  "kareemosgoodv1107001@hotmail.com": {
+    "status": "failed",
+    "error": "Email field not found — account picker may still be showing",
+    "proxy": "nl.decodo.com:10062:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-06T12:24:04.290Z"
+  },
+  "sharronhockingft27349@hotmail.com": {
+    "status": "failed",
+    "error": "Email field not found — account picker may still be showing",
+    "proxy": "nl.decodo.com:10003:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-06T12:24:18.871Z"
+  },
+  "ritaballentined143068@hotmail.com": {
+    "status": "failed",
+    "error": "Email field not found — account picker may still be showing",
+    "proxy": "nl.decodo.com:10098:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-06T12:24:37.242Z"
+  },
+  "cyndieestockft2299@hotmail.com": {
+    "status": "failed",
+    "error": "Email field not found — account picker may still be showing",
+    "proxy": "nl.decodo.com:10117:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-06T12:24:54.484Z"
+  },
+  "abbyschaeffnerfh1951@hotmail.com": {
+    "status": "failed",
+    "error": "Email field not found — account picker may still be showing",
+    "proxy": "nl.decodo.com:10025:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-06T12:25:13.820Z"
+  },
+  "dominiqueziglerka37707@hotmail.com": {
+    "status": "failed",
+    "error": "Email field not found — account picker may still be showing",
+    "proxy": "nl.decodo.com:10018:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-06T12:25:29.442Z"
+  },
+  "sangdierdorfdu2580@hotmail.com": {
+    "status": "success",
+    "error": "Account already has secondary email set up (go*****@rambler) — marking as already_used",
+    "proxy": "nl.decodo.com:10237:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "last_attempt": "2026-04-06T12:45:18.694Z",
+    "note": "Account fully created — payment set up later",
+    "restore_session": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\sangdierdorfdu2580_hotmail_com_SUCCESS_2026-04-07T17-28-10-228Z.json",
+    "restore_time": "2026-04-07T17:38:57.676Z",
+    "restore_status": "success",
+    "restore_cookie_file": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\sangdierdorfdu2580_hotmail_com_RESTORE_final_2026-04-07T17-23-59-781Z_cookies.json",
+    "restore_final_url": "https://ads.microsoft.com/signup/?aid=187212540&cid=254799223&uid=193049838",
+    "restore_note": "Completed setup steps — awaiting user visual confirmation",
+    "restore_error": "page.goto: net::ERR_EMPTY_RESPONSE at https://ads.microsoft.com/\nCall log:\n  - navigating to \"https://ads.microsoft.com/\", waiting until \"domcontentloaded\"\n"
+  },
+  "jamesmackv119525@hotmail.com": {
+    "status": "success",
+    "proxy": "nl.decodo.com:10001:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "started_at": "2026-04-07T21:01:48.281Z",
+    "reserved_rambler": null,
+    "secondary_email": "ivanova.sb2b5@lenta.ru",
+    "session": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\jamesmackv119525_hotmail_com_FINAL_2026-04-07T21-03-44-022Z.json",
+    "login_time": "2026-04-07T20:53:24.425Z",
+    "error": "page.evaluate: Target page, context or browser has been closed",
+    "failed_at": "2026-04-07T20:55:07.734Z",
+    "resumed_at": "2026-04-07T21:01:49.004Z",
+    "restore_status": "success",
+    "biz_email": "info@secrid.com",
+    "biz_name": "Secrid",
+    "final_url": "https://account.live.com/proofs/Verify?mkt=en-us&sn=604298&uiflavor=web&mpcxt=CATB&ru=https%3a%2f%2flogin.live.com%2foauth20_authorize.srf%3fuaid%3d579fc4a528ae4f3bbbc144163e3fb8fa%26client_id%3d5e68f16e-b58b-4a8e-b33c-4f737f1c7ace%26opid%3d458A73B69D527773%26mkt%3dEN-US%26opidt%3d1775595752&id=293577&client_id=1E0000456F6282&posturl=https%3a%2f%2flogin.live.com%2fppsecure%2fpost.srf%3flc%3d1033%26username%3djamesmackv119525%2540hotmail.com%26client_id%3d5e68f16e-b58b-4a8e-b33c-4f737f1c7ace%26mkt%3dEN-US%26opid%3d458A73B69D527773%26opidt%3d1775595752%26uaid%3d579fc4a528ae4f3bbbc144163e3fb8fa&epid=4wmYUPE2qPNfHTMmq%2fBoaub3qupfF8IdGCD4HarrbuNPVaTF6QQhqsVa1nMPCkev61iM6ooJe3fc69zZBs45C9SxSn1S0j1KgYoyfQX493Vlhk2%2bKJFcMaTAnuKN2izzfsvw%2fHvGFT5qBWtNhXl4vuvqbSER0%2bDDAGcR2WiVxvtp6djBcNhvoajFCHGFpLg4BaiiuHOepfRcBNf%2fzltOIU%2bjR1hj8SyWiLBSnJT0fIGhz7c8RyoJJ9FQTcTmbMrM%3a2%3a3&uaid=579fc4a528ae4f3bbbc144163e3fb8fa",
+    "completed_at": "2026-04-07T21:03:44.217Z"
+  },
+  "chazgomezka38112@hotmail.com": {
+    "status": "failed",
+    "proxy": "nl.decodo.com:10002:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "started_at": "2026-04-08T16:30:37.809Z",
+    "reserved_rambler": null,
+    "secondary_email": "bogdanova.s17sg@rambler.ua",
+    "session": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\chazgomezka38112_hotmail_com_FINAL_2026-04-08T16-31-22-314Z.json",
+    "login_time": "2026-04-08T16:30:59.528Z",
+    "error": "Flow finished outside Microsoft Ads (login or account.live security still open).",
+    "final_url": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3D8ouwTTNdQ-9Y8lwGICFDiyrSYMNrv6Jj40VnvxLsz4dCA-dC_hIi1iJjwmYEj9DARtalxD2e5xm8DfWcsUTsU77iV7Bf1q_FPVdANSvnnLvaVmGbzoTw-6vc4Taf6nMpw4V55t7snrL8hebt2Bli08fGFXbB5YfGPx_f0etl1RyNYatMoiDDM_9QhIfCWc9gDOlQs8x-XcyqYlNmZgo6-xpOYhc8d-lAoD0NsiZ8CMnAYJAMCrk8l1nWFN8i-6dT0nyskV0k86y6qJbxd-c2QoHZC1-W7VLXiU2Czxr4uNq3fWXa&response_mode=form_post&nonce=639112626592326502.ZmMxZTcwYmMtOGFhOS00NzViLWFmZjUtMzY3NzVmMmI3YmVlM2YyNWJkMTQtODg2Mi00NzNjLWIyNmMtYzNjZDE2YzE0NTA4&prompt=select_account&lc=1033&uaid=8046a012d0f04e9c991441de392fc43d&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0",
+    "failed_at": "2026-04-08T16:31:22.503Z"
+  },
+  "shalondabarbourld4509@hotmail.com": {
+    "status": "failed",
+    "proxy": "nl.decodo.com:10004:spqrub6gnk:2I77ud0zaanF_mxbHR",
+    "started_at": "2026-04-08T16:34:15.710Z",
+    "reserved_rambler": null,
+    "secondary_email": "polishchuk.g47y4@lenta.ru",
+    "session": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\shalondabarbourld4509_hotmail_com_FINAL_2026-04-08T16-35-00-708Z.json",
+    "login_time": "2026-04-08T16:34:37.004Z",
+    "error": "Flow finished outside Microsoft Ads (login or account.live security still open).",
+    "final_url": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3Dsi-skznDXwcGwkAwP7c8YlAbPvNS-gqHNyvDPz7-Zmdzt_kJHPBCgs7oNawMJcyU5-6CLHRL8vqaF32--z6xbna7eaAfPBXqiK2s0FMSc1TQyT9y-4xCfc7cIUKrGsfT0Nim7qjMs44FHaJ3n4khaL-IWLC16WzXZ3IwdujIta-mJGfITl-y_7o4ssSgAhqzDypnrcSCh0SNRQXc5tSZujTe7t_9LLW6m-sJWpjZDCOyBVdwhzCkWpNQy8qGtucjUrWUWVbAJNyiOaUpnrELN4L4Ms24bXoOp-nkMfOHP4S4hin0&response_mode=form_post&nonce=639112628766862408.YTJkMzVkNGEtMTg1ZC00OGRjLThiYzMtMzYyMDc1MGQwNjM2MzQyNGU3MDItNjEwNi00NTBkLTk4NzktZTVmMGEzM2MzNDA3&prompt=select_account&lc=1033&uaid=306318433dc249168d374952d233b95c&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0",
+    "failed_at": "2026-04-08T16:35:00.849Z"
+  }
+}

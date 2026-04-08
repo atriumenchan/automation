@@ -1,0 +1,171 @@
+{
+  "email": "oscarneelyd3196@hotmail.com",
+  "status": "failed",
+  "steps": [
+    {
+      "n": 1,
+      "t": "2026-04-06T12:20:45.572Z",
+      "msg": "Launch browser"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:20:46.076Z",
+      "msg": "Navigate to Microsoft login"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:20:53.084Z",
+      "msg": "  → URL  : https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:20:53.084Z",
+      "msg": "  → Title: Sign in to your account"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:20:53.370Z",
+      "msg": "  → Screenshot → logs/screenshots/oscarneelyd3196_hotmail_com_login_page_2026-04-06T12-20-53-084Z.png"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-06T12:20:53.370Z",
+      "msg": "Phase 1 — Microsoft login"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-06T12:20:53.371Z",
+      "msg": "Dismiss account picker"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:20:53.427Z",
+      "msg": "Enter email"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:20:53.441Z",
+      "msg": "  → Email field: input[name=\"loginfmt\"]"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:20:58.990Z",
+      "msg": "  ✅ Email typed: oscarneelyd3196@hotmail.com"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:20:59.689Z",
+      "msg": "  ✅ Clicked Next [input[type=\"submit\"]]"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:21:03.370Z",
+      "msg": "  → URL  : https://login.live.com/oauth20_authorize.srf?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&scope=openid+profile&redirect_uri=https%3a%2f%2fads.microsoft.com%2fLogin%2fMsa&response_type=code+id_token&state=OpenIdConnect.AuthenticationProperties%3dpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&x-client-SKU=ID_NET461&x-client-Ver=6.6.0.0&uaid=959ac0af93a7413dbe1c732ab96bf846&msproxy=1&issuer=mso&tenant=common&ui_locales=en-US&epctrc=%2fKW9aIRe%2fRm9h2psWpD%2b5uwODxqu2rGs3xbIaoLr3mc%3d3%3a1%3aCANARY%3aPsITLXsMA9Op27LNQRaQjedRKq8cxbEsrIF6y00i9SE%3d&epct=PAQABDgEAAACvnsHKEvvRQb3Bz3Qc7wnaRXZvU3RzQXJ0aWZhY3RzCAAAAAAAla2mYG5gPMTcEVH0cG1KRV_ly0J9k7S7p0iJueMOnIQAEBLfqoI7-nUVfF2ZGzv4cRJvuMsJRSnlcYbYyN0_escTB5262hRRZpKpSTLh3r2wI4KBeXQdeX5oQ10fVssOlwppSwIAC1g_buVFeCgo_JeuhwfgFQ4BiNpwvWXeHE_tBTW3iP7pz8KBb-FOKj3gw7GlMEcxFsOJzMwy7IS8wSAA&jshs=2&jsh=&jshp=&username=oscarneelyd3196%40hotmail.com&login_hint=oscarneelyd3196%40hotmail.com"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:21:03.370Z",
+      "msg": "  → Title: Enter your password"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:21:03.370Z",
+      "msg": "Enter password"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:21:03.399Z",
+      "msg": "  → Password field: input[name=\"passwd\"]"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:21:07.145Z",
+      "msg": "  ✅ Password typed"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:21:08.673Z",
+      "msg": "  ✅ Clicked Next [button:has-text(\"Next\")]"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:21:11.976Z",
+      "msg": "  → URL  : https://account.live.com/proofs/Add?mkt=EN-US&uiflavor=web&client_id=1E0000456F6282&id=293577&mpcxt=CATB&sn=604800&posturl=https://login.live.com/ppsecure/post.srf%3flc%3d1033%26username%3doscarneelyd3196%2540hotmail.com%26client_id%3d5e68f16e-b58b-4a8e-b33c-4f737f1c7ace%26mkt%3dEN-US%26opid%3d098FFB07E477F029%26opidt%3d1775478067%26uaid%3d959ac0af93a7413dbe1c732ab96bf846&ru=https://login.live.com/oauth20_authorize.srf%3fuaid%3d959ac0af93a7413dbe1c732ab96bf846%26client_id%3d5e68f16e-b58b-4a8e-b33c-4f737f1c7ace%26opid%3d098FFB07E477F029%26mkt%3dEN-US%26opidt%3d1775478067"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:21:11.976Z",
+      "msg": "  → Title: Let's protect your account"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-06T12:21:11.977Z",
+      "msg": "Detect screen after login"
+    },
+    {
+      "n": 8,
+      "t": "2026-04-06T12:21:13.900Z",
+      "msg": "Phase 3 — Enter Rambler email as secondary"
+    },
+    {
+      "n": 8,
+      "t": "2026-04-06T12:21:13.910Z",
+      "msg": "  → Secondary field: input[type=\"email\"]"
+    },
+    {
+      "n": 8,
+      "t": "2026-04-06T12:21:18.699Z",
+      "msg": "  ✅ Rambler email typed: ivanova.sb2b5@lenta.ru"
+    },
+    {
+      "n": 8,
+      "t": "2026-04-06T12:21:25.231Z",
+      "msg": "  ✅ Clicked \"Send code\" [input[type=\"submit\"]]"
+    },
+    {
+      "n": 9,
+      "t": "2026-04-06T12:21:25.231Z",
+      "msg": "Phase 3 — Wait for OTP in Rambler inbox (IMAP)"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:24:32.299Z",
+      "msg": "ERROR — diagnostics"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:24:32.299Z",
+      "msg": "  ✗  OTP not received within 180s for ivanova.sb2b5@lenta.ru"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:24:32.299Z",
+      "msg": "  → Stack: Error: OTP not received within 180s for ivanova.sb2b5@lenta.ru |     at waitForOtp (C:\\Users\\ADMEXO\\Downloads\\automation profile\\imap_otp.js:151:11) |     at async phaseSecondaryAndOTP (C:\\Users\\ADMEXO\\Downloads\\automation profile\\full_flow.js:389:15) |     at async processAccount (C:\\Users\\ADMEXO\\Downloads\\automation profile\\full_flow.js:687:7) |     at async C:\\Users\\ADMEXO\\Downloads\\automation profile\\full_flow.js:838:20"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:24:32.301Z",
+      "msg": "  → URL  : https://account.live.com/proofs/Verify?mkt=en-us&sn=604800&uiflavor=web&mpcxt=CATB&ru=https%3a%2f%2flogin.live.com%2foauth20_authorize.srf%3fuaid%3d959ac0af93a7413dbe1c732ab96bf846%26client_id%3d5e68f16e-b58b-4a8e-b33c-4f737f1c7ace%26opid%3d098FFB07E477F029%26mkt%3dEN-US%26opidt%3d1775478067&id=293577&client_id=1E0000456F6282&posturl=https%3a%2f%2flogin.live.com%2fppsecure%2fpost.srf%3flc%3d1033%26username%3doscarneelyd3196%2540hotmail.com%26client_id%3d5e68f16e-b58b-4a8e-b33c-4f737f1c7ace%26mkt%3dEN-US%26opid%3d098FFB07E477F029%26opidt%3d1775478067%26uaid%3d959ac0af93a7413dbe1c732ab96bf846&epid=rwDmF0F3gpT%2bxNrubBNV4nJVToPYOPr16mjdbBnpDija4oVhnmP2JnR6oiqoqiaOlRalooKZr%2bCcBH9egkUFenrqgIDCta6Uif93lp%2bQNZNbalbog3EjtH%2bqlgA4vywuPnGuwoUsoCDi%2bcpTzXqBTt618CEj%2f0jiFvGYik3A%2bvvoZmVdtWfXjPfQ6xNjYlRzFqYuFmmM1yN9PBNw0aA%2bMQ%2fYOR6xVG51lsxWvm%2bq6uz0xAkVcRsodPcWob2oEF%2fz%3a2%3a3&uaid=959ac0af93a7413dbe1c732ab96bf846"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:24:32.301Z",
+      "msg": "  → Title: ?"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:24:32.302Z",
+      "msg": "  → (screenshot failed: page.screenshot: Target page, context or browser has been closed)"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:24:32.303Z",
+      "msg": "  → Page body: "
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:24:32.972Z",
+      "msg": "  ✅ Session saved: sessions\\oscarneelyd3196_hotmail_com_error_2026-04-06T12-24-32-304Z.json (24 cookies)"
+    }
+  ]
+}

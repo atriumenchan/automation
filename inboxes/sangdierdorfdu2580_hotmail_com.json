@@ -1,0 +1,15 @@
+{
+  "id": "79a51a68-5596-47e5-b1b6-8e29152a0716",
+  "userId": "392e82d9-01d9-4c3f-a59e-3bfadc4228b1",
+  "createdAt": "2026-04-06T08:03:40.595Z",
+  "emailAddress": "79a51a68-5596-47e5-b1b6-8e29152a0716@mailslurp.net",
+  "expiresAt": "2026-04-07T20:03:40.575Z",
+  "favourite": false,
+  "tags": [],
+  "inboxType": "HTTP_INBOX",
+  "readOnly": false,
+  "virtualInbox": false,
+  "localPart": "79a51a68-5596-47e5-b1b6-8e29152a0716",
+  "domain": "mailslurp.net",
+  "accountRegion": "US_WEST_2"
+}

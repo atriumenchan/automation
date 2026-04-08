@@ -1,0 +1,92 @@
+[
+  {
+    "name": "buid",
+    "value": "1.ASYAMe_N-B6jSkuT5F9XHpElWm7xaF6LtY5KszxPc38ces4AAAAmAA.AQABGgEAAACvnsHKEvvRQb3Bz3Qc7wnaRXZvU3RzQXJ0aWZhY3RzAwAAAAAAJvHuZ7ouhfPkH30yvy4zIkkixOhDHZpRDDhBDpOjfUSqArwjLzrZ2m-DE6GYB9eAHhcYUDJFHMlEY4LP46A0jK6w6gZxYnMq5x4TYxG-NrcgAA",
+    "domain": "login.microsoftonline.com",
+    "path": "/",
+    "expires": 1778070017.316087,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "esctx",
+    "value": "PAQABBwEAAACvnsHKEvvRQb3Bz3Qc7wnaRXZvU3RzQXJ0aWZhY3RzDQAAAAAAaklf611SKQRi6T-DejsXSupeAZK87i5LWsee3lZptsbwRqSI_R73RUqhOsYuwH7mYOtmZpQBGbTKx_trns8xEkeolAZAjSKPf99W9jtJkgAjQFMYNW1xUUKtC64uzkkPD_mSB0f2saLmpP48W3cuP3JFzyNR0ItBVvg4I60d3p8gAA",
+    "domain": ".login.microsoftonline.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "esctx-YlA03gj7tZo",
+    "value": "AQABCQEAAACvnsHKEvvRQb3Bz3Qc7wnaRXZvU3RzQXJ0aWZhY3RzDQAAAAAA47Jdx6_0G9CqwXd64HP-giQXhFCQElsjpW4DC9sGoZLs0ViYTI_ax71oFThhFpxpLMDPJpjWTQMa4bEYi8gfVfCIXse8RTjikYX1Euw8OALgdCiaCLpXVosDFppoFHiwwQvtqwqyhgHOiQoQi3vPsyAA",
+    "domain": ".login.microsoftonline.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "fpc",
+    "value": "AhtzwC_hjsBAiopwMK7lXzQ5eL6mAQAAAP6bZeEOAAAA",
+    "domain": "login.microsoftonline.com",
+    "path": "/",
+    "expires": 1778070017.316326,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "x-ms-gateway-slice",
+    "value": "estsfd",
+    "domain": "login.microsoftonline.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "stsservicecookie",
+    "value": "estsfd",
+    "domain": "login.microsoftonline.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "uaid",
+    "value": "9d03c07362c247e6aefd7f021ba7b452",
+    "domain": ".login.live.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "MSPRequ",
+    "value": "id=N&lt=1775478017&co=1",
+    "domain": ".login.live.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "brcap",
+    "value": "0",
+    "domain": ".login.microsoftonline.com",
+    "path": "/",
+    "expires": 1809174021,
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "None"
+  }
+]

@@ -1,0 +1,171 @@
+{
+  "email": "sangdierdorfdu2580@hotmail.com",
+  "status": "failed",
+  "steps": [
+    {
+      "n": 1,
+      "t": "2026-04-06T12:31:16.216Z",
+      "msg": "Launch browser"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:31:17.324Z",
+      "msg": "Navigate to Microsoft login"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:31:23.414Z",
+      "msg": "  → URL  : https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:31:23.414Z",
+      "msg": "  → Title: Sign in to your account"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:31:23.751Z",
+      "msg": "  → Screenshot → logs/screenshots/sangdierdorfdu2580_hotmail_com_login_page_2026-04-06T12-31-23-414Z.png"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-06T12:31:23.752Z",
+      "msg": "Phase 1 — Microsoft login"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-06T12:31:23.752Z",
+      "msg": "Dismiss account picker"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:31:23.813Z",
+      "msg": "Enter email"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:31:23.832Z",
+      "msg": "  → Email field: input[name=\"loginfmt\"]"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:31:29.356Z",
+      "msg": "  ✅ Email typed: sangdierdorfdu2580@hotmail.com"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:31:30.155Z",
+      "msg": "  ✅ Clicked Next [input[type=\"submit\"]]"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:31:33.461Z",
+      "msg": "  → URL  : https://login.live.com/oauth20_authorize.srf?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&scope=openid+profile&redirect_uri=https%3a%2f%2fads.microsoft.com%2fLogin%2fMsa&response_type=code+id_token&state=OpenIdConnect.AuthenticationProperties%3dpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&x-client-SKU=ID_NET461&x-client-Ver=6.6.0.0&uaid=fa4f77d9bbc9472dab2b17edaf4fd701&msproxy=1&issuer=mso&tenant=common&ui_locales=en-US&epctrc=9HPcRlOZ7BrKkaG6Ka3q3Yv7Oc4AhoanL9UZ%2foQdlM4%3d3%3a1%3aCANARY%3a9aOMSFofB%2byFDR6lsLXAl1jIi1wKXp07L5KYmWhf5vs%3d&epct=PAQABDgEAAACvnsHKEvvRQb3Bz3Qc7wnaRXZvU3RzQXJ0aWZhY3RzCAAAAAAA9keCo1IUyj0TK2iV1E2gJIRiMDgP_6TpTc1YizVDP3oSdjogNM63A-Ob4MZsrMcLZYblug5gYNf1ylji1C_NKxlfS5CL44LCJcTyuLgdstYleCIcqZhIxPvr4OtyKbxDgp3iZrvqwnnR0WjPVBgWRYiajRXeicfz3ipsKFbfoRKvVrKXb9X88Do1tMP03LcQEptBfuFZrVdKJjySMp50zyAA&jshs=2&jsh=&jshp=&username=sangdierdorfdu2580%40hotmail.com&login_hint=sangdierdorfdu2580%40hotmail.com"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:31:33.461Z",
+      "msg": "  → Title: Sign in to your Microsoft account"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:31:33.461Z",
+      "msg": "Enter password"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:31:35.030Z",
+      "msg": "  → Password field: input[name=\"passwd\"]"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:31:38.587Z",
+      "msg": "  ✅ Password typed"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:31:39.790Z",
+      "msg": "  ✅ Clicked Next [button:has-text(\"Next\")]"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:31:44.504Z",
+      "msg": "  → URL  : https://account.live.com/proofs/Add?mkt=EN-US&uiflavor=web&client_id=1E0000456F6282&id=293577&mpcxt=CATB&sn=274555&posturl=https://login.live.com/ppsecure/post.srf%3flc%3d1033%26username%3dsangdierdorfdu2580%2540hotmail.com%26client_id%3d5e68f16e-b58b-4a8e-b33c-4f737f1c7ace%26mkt%3dEN-US%26opid%3d07C002E135FCF8F0%26opidt%3d1775478698%26uaid%3dfa4f77d9bbc9472dab2b17edaf4fd701&ru=https://login.live.com/oauth20_authorize.srf%3fuaid%3dfa4f77d9bbc9472dab2b17edaf4fd701%26client_id%3d5e68f16e-b58b-4a8e-b33c-4f737f1c7ace%26opid%3d07C002E135FCF8F0%26mkt%3dEN-US%26opidt%3d1775478698"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:31:44.504Z",
+      "msg": "  → Title: Let's protect your account"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-06T12:31:44.504Z",
+      "msg": "Detect screen after login"
+    },
+    {
+      "n": 8,
+      "t": "2026-04-06T12:31:46.301Z",
+      "msg": "Phase 3 — Enter Rambler email as secondary"
+    },
+    {
+      "n": 8,
+      "t": "2026-04-06T12:31:46.310Z",
+      "msg": "  → Secondary field: input[type=\"email\"]"
+    },
+    {
+      "n": 8,
+      "t": "2026-04-06T12:31:51.662Z",
+      "msg": "  ✅ Rambler email typed: gorbunova-gy5oh@rambler.ua"
+    },
+    {
+      "n": 8,
+      "t": "2026-04-06T12:31:55.715Z",
+      "msg": "  ✅ Clicked \"Send code\" [input[type=\"submit\"]]"
+    },
+    {
+      "n": 9,
+      "t": "2026-04-06T12:31:55.715Z",
+      "msg": "Phase 3 — Wait for OTP in Rambler inbox (IMAP)"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:35:05.207Z",
+      "msg": "ERROR — diagnostics"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:35:05.207Z",
+      "msg": "  ✗  OTP not received within 180s for gorbunova-gy5oh@rambler.ua"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:35:05.207Z",
+      "msg": "  → Stack: Error: OTP not received within 180s for gorbunova-gy5oh@rambler.ua |     at waitForOtp (C:\\Users\\ADMEXO\\Downloads\\automation profile\\imap_otp.js:151:11) |     at async phaseSecondaryAndOTP (C:\\Users\\ADMEXO\\Downloads\\automation profile\\full_flow.js:397:15) |     at async processAccount (C:\\Users\\ADMEXO\\Downloads\\automation profile\\full_flow.js:695:7) |     at async C:\\Users\\ADMEXO\\Downloads\\automation profile\\full_flow.js:850:18"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:35:05.210Z",
+      "msg": "  → URL  : https://account.live.com/proofs/Verify?mkt=en-us&sn=274555&uiflavor=web&mpcxt=CATB&ru=https%3a%2f%2flogin.live.com%2foauth20_authorize.srf%3fuaid%3dfa4f77d9bbc9472dab2b17edaf4fd701%26client_id%3d5e68f16e-b58b-4a8e-b33c-4f737f1c7ace%26opid%3d07C002E135FCF8F0%26mkt%3dEN-US%26opidt%3d1775478698&id=293577&client_id=1E0000456F6282&posturl=https%3a%2f%2flogin.live.com%2fppsecure%2fpost.srf%3flc%3d1033%26username%3dsangdierdorfdu2580%2540hotmail.com%26client_id%3d5e68f16e-b58b-4a8e-b33c-4f737f1c7ace%26mkt%3dEN-US%26opid%3d07C002E135FCF8F0%26opidt%3d1775478698%26uaid%3dfa4f77d9bbc9472dab2b17edaf4fd701&epid=4UVxCbIGhMFXJVKCDX%2bib7QdkoFyzQNq0mBCQa0SpfXlaHNO%2bKIxfpaSxETxNhkLW07Hsb40hNOjB6snHHeVm1%2fB5N4fpJEeLIie%2bzHnppOLM0y4NSOLykWt8QGj3sMypLbYusw%2b%2b4HXO%2bUO3teIeMdKuc1tSTPQ35I0slaDws4a8xHL1kgbKTe%2fWgwdhQ818jD0sz3NqniPZO0g4muYuYCXIn5mXB7NzEl808ZTdJ19l4K8mKTADnBojjZs2lCIvRrzR8Lk%2bTNJ21xxsXEMfA%3d%3d%3a2%3a3&uaid=fa4f77d9bbc9472dab2b17edaf4fd701"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:35:05.210Z",
+      "msg": "  → Title: Enter the code we sent to gorbunova-gy5oh@rambler.ua"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:35:05.391Z",
+      "msg": "  → Screenshot → logs/screenshots/sangdierdorfdu2580_hotmail_com_error_2026-04-06T12-35-05-211Z.png"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:35:05.394Z",
+      "msg": "  → Page body: sangdierdorfdu2580@hotmail.com Enter code Enter the code we sent to gorbunova-gy5oh@rambler.ua Skip for now (3 days until this is required) I don't have a code Sign out Terms of Use Privacy & Cookies"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-06T12:35:05.735Z",
+      "msg": "  ✅ Session saved: sessions\\sangdierdorfdu2580_hotmail_com_error_2026-04-06T12-35-05-396Z.json (24 cookies)"
+    }
+  ]
+}

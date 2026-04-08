@@ -1,0 +1,356 @@
+{
+  "email": "sangdierdorfdu2580@hotmail.com",
+  "status": "pending_confirm",
+  "steps": [
+    {
+      "n": 1,
+      "t": "2026-04-07T16:58:27.091Z",
+      "m": "Launch browser (windowed, maximised)"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-07T16:58:27.361Z",
+      "m": "Load saved session"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-07T16:58:27.362Z",
+      "m": "✅ Loaded: sangdierdorfdu2580_hotmail_com_post_login_2026-04-06T12-42-27-148Z.json"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-07T16:58:27.889Z",
+      "m": "Navigate to Microsoft Ads"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-07T16:58:37.140Z",
+      "m": "→ URL  : https://ads.microsoft.com/"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-07T16:58:37.140Z",
+      "m": "→ Title: Start using search ads, display ads, online video and more | Microsoft Advertising"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-07T16:58:37.422Z",
+      "m": "→ Screenshot: logs/screenshots/sangdierdorfdu2580_hotmail_com_restore_01_landing_2026-04-07T16-58-37-140Z.png"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-07T16:58:37.422Z",
+      "m": "Click Sign in"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-07T16:58:40.831Z",
+      "m": "✅ Clicked \"Sign in\" [a:has-text(\"Sign in\")]"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-07T16:58:44.352Z",
+      "m": "→ URL  : https://ui.ads.microsoft.com/campaign/pmaxlitelanding/signin?"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-07T16:58:44.352Z",
+      "m": "→ Title: Microsoft Advertising"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-07T16:58:45.323Z",
+      "m": "→ Screenshot: logs/screenshots/sangdierdorfdu2580_hotmail_com_restore_02_after_signin_btn_2026-04-07T16-58-44-352Z.png"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-07T16:58:45.323Z",
+      "m": "Click Continue with Microsoft"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-07T16:59:04.454Z",
+      "m": "✅ Clicked \"Continue with Microsoft\" [button:has-text(\"Microsoft\")]"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-07T16:59:09.263Z",
+      "m": "→ URL  : https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3D0Sp259sW-VO26H5RqByhQEkRK6i-rRDhggZxVU0boVt74h18-Ogm45Sg1YSUTfN-0eR8HTN_fhicBMPwHPJte9ofeytpJNCLuNuZsY34rb2ORgB16bZShh9P8_AgVLV35Sg38t0wy21GtDF8X2UwFEzrFLWDYIwldAqWEFEzs04xscAaGvQXLwupHEhXy6NR7s5nxtAr9vmKVZbo2ShkGZ4qTiSnSSXQkQyr0A8hjh1m93vG30JFfs_KZ5xvu8fA-kn0MnCbNX4OMeFI0Iesw71fIkqUaL-B9NO7RFjcKeOeCPwIrH_zrY6vN3zgB1wbHb8rxA&response_mode=form_post&nonce=639111779418377093.MTY3NTkwMzEtOWJlOC00NDdjLWIyZmQtYzI1MmZjNTA3ODY3OGU4NDJmNGQtZTY1Yi00YWIzLWI4OTMtZDUzODkyOGJlY2Y5&prompt=select_account&lc=1033&uaid=c25ef77e0ed1415b93b57ddada0103c5&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-07T16:59:09.263Z",
+      "m": "→ Title: Sign in to your account"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-07T16:59:09.639Z",
+      "m": "→ Screenshot: logs/screenshots/sangdierdorfdu2580_hotmail_com_restore_03_after_continue_ms_2026-04-07T16-59-09-263Z.png"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-07T16:59:09.639Z",
+      "m": "Handle account picker"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-07T16:59:11.657Z",
+      "m": "→ URL  : https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3D0Sp259sW-VO26H5RqByhQEkRK6i-rRDhggZxVU0boVt74h18-Ogm45Sg1YSUTfN-0eR8HTN_fhicBMPwHPJte9ofeytpJNCLuNuZsY34rb2ORgB16bZShh9P8_AgVLV35Sg38t0wy21GtDF8X2UwFEzrFLWDYIwldAqWEFEzs04xscAaGvQXLwupHEhXy6NR7s5nxtAr9vmKVZbo2ShkGZ4qTiSnSSXQkQyr0A8hjh1m93vG30JFfs_KZ5xvu8fA-kn0MnCbNX4OMeFI0Iesw71fIkqUaL-B9NO7RFjcKeOeCPwIrH_zrY6vN3zgB1wbHb8rxA&response_mode=form_post&nonce=639111779418377093.MTY3NTkwMzEtOWJlOC00NDdjLWIyZmQtYzI1MmZjNTA3ODY3OGU4NDJmNGQtZTY1Yi00YWIzLWI4OTMtZDUzODkyOGJlY2Y5&prompt=select_account&lc=1033&uaid=c25ef77e0ed1415b93b57ddada0103c5&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-07T16:59:11.657Z",
+      "m": "→ Title: Sign in to your account"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-07T16:59:11.878Z",
+      "m": "→ Screenshot: logs/screenshots/sangdierdorfdu2580_hotmail_com_restore_04_account_picker_2026-04-07T16-59-11-657Z.png"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-07T16:59:14.161Z",
+      "m": "✅ Account tile clicked via JS: \"JS click: Dierdorf Sang sangdierdorfdu2580@hotmail.com Signed in\""
+    },
+    {
+      "n": 6,
+      "t": "2026-04-07T16:59:17.305Z",
+      "m": "→ URL  : https://login.live.com/oauth20_authorize.srf?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&scope=openid+profile&redirect_uri=https%3a%2f%2fads.microsoft.com%2fLogin%2fMsa&response_type=code+id_token&state=OpenIdConnect.AuthenticationProperties%3d0Sp259sW-VO26H5RqByhQEkRK6i-rRDhggZxVU0boVt74h18-Ogm45Sg1YSUTfN-0eR8HTN_fhicBMPwHPJte9ofeytpJNCLuNuZsY34rb2ORgB16bZShh9P8_AgVLV35Sg38t0wy21GtDF8X2UwFEzrFLWDYIwldAqWEFEzs04xscAaGvQXLwupHEhXy6NR7s5nxtAr9vmKVZbo2ShkGZ4qTiSnSSXQkQyr0A8hjh1m93vG30JFfs_KZ5xvu8fA-kn0MnCbNX4OMeFI0Iesw71fIkqUaL-B9NO7RFjcKeOeCPwIrH_zrY6vN3zgB1wbHb8rxA&response_mode=form_post&nonce=639111779418377093.MTY3NTkwMzEtOWJlOC00NDdjLWIyZmQtYzI1MmZjNTA3ODY3OGU4NDJmNGQtZTY1Yi00YWIzLWI4OTMtZDUzODkyOGJlY2Y5&x-client-SKU=ID_NET461&x-client-Ver=6.6.0.0&uaid=c2e999937de74f41a61dd52b4366280f&msproxy=1&issuer=mso&tenant=common&ui_locales=en-US&epctrc=bztSfZLg4zpI7QvRcw6Woc%2b4elrf8Fq1zAT5iAqul4M%3d4%3a1%3aCANARY%3aU%2bBJGjFzquxvMLyzOiw3Tve0Kcgym136pnubkgf4Xa8%3d&epct=PAQABDgEAAACvnsHKEvvRQb3Bz3Qc7wnaRXZvU3RzQXJ0aWZhY3RzCAAAAAAA3z5Qntm_HBaJyjGDVGGm-V-KBcq7hYrgJzPWHl2afcoSJNsGR5LXvhmA0OYzDQrgUPcUpQymDWN80k4oW4Dtdut6lud1nY--v-dSo-voSTVt3cQkqhWkx32wCGu3iFChAJeGmzOo0ScRnMX_tcWVgbHsInshDLaa862HhG7gxXsrF1jjPPxUymRMoi7oYW4nWwgnY3ICzXS_X-lMB_83dyAA&jshs=2&jsh=3%24sangdierdorfdu2580%2540hotmail.com%24Dierdorf%24Sang%24%242%240%240%243481635659697023956%240&jshp=&username=sangdierdorfdu2580%40hotmail.com&login_hint=sangdierdorfdu2580%40hotmail.com"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-07T16:59:17.306Z",
+      "m": "→ Title: Microsoft account"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-07T16:59:17.394Z",
+      "m": "→ Screenshot: logs/screenshots/sangdierdorfdu2580_hotmail_com_restore_05_after_picker_2026-04-07T16-59-17-306Z.png"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-07T16:59:17.394Z",
+      "m": "Handle post-picker screen"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-07T16:59:21.037Z",
+      "m": "→ [1] URL: https://login.live.com/oauth20_authorize.srf  Title: Stay signed in?"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-07T16:59:21.037Z",
+      "m": "→ Handling \"Stay signed in?\" → clicking Yes"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-07T16:59:35.852Z",
+      "m": "✅ Clicked \"Yes\" [button:has-text(\"Yes\")]"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-07T16:59:41.372Z",
+      "m": "→ Screenshot: logs/screenshots/sangdierdorfdu2580_hotmail_com_restore_06_stay_signed_in_2026-04-07T16-59-40-085Z.png"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-07T16:59:41.375Z",
+      "m": "→ [2] URL: https://ads.microsoft.com/PMaxLite/Signup  Title: Microsoft Advertising"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-07T16:59:41.375Z",
+      "m": "✅ Redirected to Microsoft Ads — signed in!"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-07T16:59:41.376Z",
+      "m": "→ URL  : https://ads.microsoft.com/PMaxLite/Signup?s_cid=acq-pmaxlanding-src_default&idP=MSA&cid=254799223&uid=193049838"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-07T16:59:41.376Z",
+      "m": "→ Title: Microsoft Advertising"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-07T16:59:41.440Z",
+      "m": "→ Screenshot: logs/screenshots/sangdierdorfdu2580_hotmail_com_restore_06_after_signin_flow_2026-04-07T16-59-41-376Z.png"
+    },
+    {
+      "n": 8,
+      "t": "2026-04-07T16:59:41.440Z",
+      "m": "Save session after sign-in"
+    },
+    {
+      "n": 8,
+      "t": "2026-04-07T16:59:41.730Z",
+      "m": "✅ Session saved: sessions/sangdierdorfdu2580_hotmail_com_RESTORE_post_signin_2026-04-07T16-59-41-441Z.json (60 cookies)"
+    },
+    {
+      "n": 9,
+      "t": "2026-04-07T16:59:41.732Z",
+      "m": "Wait for Microsoft Ads dashboard to load"
+    },
+    {
+      "n": 9,
+      "t": "2026-04-07T16:59:50.185Z",
+      "m": "→ URL  : https://ads.microsoft.com/PMaxLite/Signup?cid=254799223&idP=MSA&s_cid=acq-pmaxlanding-src_default&uid=193049838"
+    },
+    {
+      "n": 9,
+      "t": "2026-04-07T16:59:50.185Z",
+      "m": "→ Title: Microsoft Advertising"
+    },
+    {
+      "n": 9,
+      "t": "2026-04-07T16:59:50.256Z",
+      "m": "→ Screenshot: logs/screenshots/sangdierdorfdu2580_hotmail_com_restore_06_ads_loaded_2026-04-07T16-59-50-185Z.png"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-07T16:59:50.256Z",
+      "m": "Wait for \"Tell us about your business\" (up to 90s for slow connections)"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-07T17:00:12.730Z",
+      "m": "→ URL  : https://ads.microsoft.com/PMaxLite/Signup/?aid=187212540&cid=254799223&idP=MSA&s_cid=acq-pmaxlanding-src_default&uid=193049838"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-07T17:00:12.731Z",
+      "m": "→ Title: Microsoft Advertising"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-07T17:01:42.733Z",
+      "m": "⚠  Business form not found — may already be on another screen"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-07T17:01:42.912Z",
+      "m": "→ Screenshot: logs/screenshots/sangdierdorfdu2580_hotmail_com_restore_07_no_biz_form_2026-04-07T17-01-42-733Z.png"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-07T17:01:42.913Z",
+      "m": "→ URL  : https://ads.microsoft.com/PMaxLite/Signup/?aid=187212540&cid=254799223&idP=MSA&s_cid=acq-pmaxlanding-src_default&uid=193049838"
+    },
+    {
+      "n": 10,
+      "t": "2026-04-07T17:01:42.913Z",
+      "m": "→ Title: Microsoft Advertising"
+    },
+    {
+      "n": 11,
+      "t": "2026-04-07T17:01:42.913Z",
+      "m": "Save session after business form"
+    },
+    {
+      "n": 11,
+      "t": "2026-04-07T17:01:43.276Z",
+      "m": "✅ Session saved: sessions/sangdierdorfdu2580_hotmail_com_RESTORE_post_biz_2026-04-07T17-01-42-913Z.json (64 cookies)"
+    },
+    {
+      "n": 12,
+      "t": "2026-04-07T17:01:43.277Z",
+      "m": "Wait for \"How can we help you\" screen"
+    },
+    {
+      "n": 12,
+      "t": "2026-04-07T17:02:03.295Z",
+      "m": "→ \"How can we help\" not found — may be on next screen already"
+    },
+    {
+      "n": 12,
+      "t": "2026-04-07T17:02:03.598Z",
+      "m": "✅ Session saved: sessions/sangdierdorfdu2580_hotmail_com_RESTORE_post_help_2026-04-07T17-02-03-295Z.json (64 cookies)"
+    },
+    {
+      "n": 13,
+      "t": "2026-04-07T17:02:03.601Z",
+      "m": "Select \"Create account without a campaign\""
+    },
+    {
+      "n": 13,
+      "t": "2026-04-07T17:02:05.712Z",
+      "m": "→ URL  : https://ads.microsoft.com/PMaxLite/Signup/?aid=187212540&cid=254799223&idP=MSA&s_cid=acq-pmaxlanding-src_default&uid=193049838"
+    },
+    {
+      "n": 13,
+      "t": "2026-04-07T17:02:05.712Z",
+      "m": "→ Title: Microsoft Advertising"
+    },
+    {
+      "n": 13,
+      "t": "2026-04-07T17:02:05.876Z",
+      "m": "→ Screenshot: logs/screenshots/sangdierdorfdu2580_hotmail_com_restore_09_campaign_choice_2026-04-07T17-02-05-713Z.png"
+    },
+    {
+      "n": 14,
+      "t": "2026-04-07T17:02:08.110Z",
+      "m": "Click \"Create account only\" card"
+    },
+    {
+      "n": 14,
+      "t": "2026-04-07T17:02:08.135Z",
+      "m": "✅ \"Create account only\" selected: card clicked: \"Create account only\""
+    },
+    {
+      "n": 14,
+      "t": "2026-04-07T17:02:10.758Z",
+      "m": "→ Screenshot: logs/screenshots/sangdierdorfdu2580_hotmail_com_restore_09_create_account_only_selected_2026-04-07T17-02-10-603Z.png"
+    },
+    {
+      "n": 15,
+      "t": "2026-04-07T17:02:10.758Z",
+      "m": "Click Next to confirm \"Create account only\""
+    },
+    {
+      "n": 15,
+      "t": "2026-04-07T17:02:11.797Z",
+      "m": "✅ Clicked Next: [button:has-text(\"Next\")]"
+    },
+    {
+      "n": 15,
+      "t": "2026-04-07T17:02:16.809Z",
+      "m": "→ URL  : https://ads.microsoft.com/PMaxLite/Signup/?aid=187212540&cid=254799223&idP=MSA&s_cid=acq-pmaxlanding-src_default&uid=193049838"
+    },
+    {
+      "n": 15,
+      "t": "2026-04-07T17:02:16.809Z",
+      "m": "→ Title: Microsoft Advertising"
+    },
+    {
+      "n": 15,
+      "t": "2026-04-07T17:02:16.895Z",
+      "m": "→ Screenshot: logs/screenshots/sangdierdorfdu2580_hotmail_com_restore_09_after_account_only_next_2026-04-07T17-02-16-810Z.png"
+    },
+    {
+      "n": 16,
+      "t": "2026-04-07T17:02:16.896Z",
+      "m": "Save final session"
+    },
+    {
+      "n": 16,
+      "t": "2026-04-07T17:02:17.223Z",
+      "m": "✅ Session saved: sessions/sangdierdorfdu2580_hotmail_com_RESTORE_final_2026-04-07T17-02-16-896Z.json (64 cookies)"
+    },
+    {
+      "n": 16,
+      "t": "2026-04-07T17:02:17.225Z",
+      "m": "→ URL  : https://ads.microsoft.com/PMaxLite/Signup/?aid=187212540&cid=254799223&idP=MSA&s_cid=acq-pmaxlanding-src_default&uid=193049838"
+    },
+    {
+      "n": 16,
+      "t": "2026-04-07T17:02:17.225Z",
+      "m": "→ Title: Microsoft Advertising"
+    },
+    {
+      "n": 16,
+      "t": "2026-04-07T17:02:17.364Z",
+      "m": "→ Screenshot: logs/screenshots/sangdierdorfdu2580_hotmail_com_restore_10_final_2026-04-07T17-02-17-226Z.png"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "dcc802f4-e53c-4a0a-9a6c-ca71bc893fa8",
+  "userId": "392e82d9-01d9-4c3f-a59e-3bfadc4228b1",
+  "createdAt": "2026-04-07T17:55:36.814Z",
+  "emailAddress": "dcc802f4-e53c-4a0a-9a6c-ca71bc893fa8@tempsmtp.com",
+  "expiresAt": "2026-04-09T05:55:36.746Z",
+  "favourite": false,
+  "tags": [],
+  "inboxType": "HTTP_INBOX",
+  "readOnly": false,
+  "virtualInbox": false,
+  "localPart": "dcc802f4-e53c-4a0a-9a6c-ca71bc893fa8",
+  "domain": "tempsmtp.com",
+  "accountRegion": "US_WEST_2"
+}

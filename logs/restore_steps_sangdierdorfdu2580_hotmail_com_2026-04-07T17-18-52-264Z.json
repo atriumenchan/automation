@@ -1,0 +1,66 @@
+{
+  "email": "sangdierdorfdu2580@hotmail.com",
+  "status": "failed",
+  "steps": [
+    {
+      "n": 1,
+      "t": "2026-04-07T17:18:35.193Z",
+      "m": "Launch browser (windowed, maximised)"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-07T17:18:35.484Z",
+      "m": "Load saved session"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-07T17:18:35.484Z",
+      "m": "✅ Loaded: sangdierdorfdu2580_hotmail_com_post_login_2026-04-06T12-42-27-148Z.json"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-07T17:18:36.062Z",
+      "m": "Navigate to Microsoft Ads"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-07T17:18:52.040Z",
+      "m": "ERROR — capturing diagnostics"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-07T17:18:52.040Z",
+      "m": "✗ page.goto: net::ERR_EMPTY_RESPONSE at https://ads.microsoft.com/\nCall log:\n  - navigating to \"https://ads.microsoft.com/\", waiting until \"domcontentloaded\"\n"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-07T17:18:52.040Z",
+      "m": "→ Stack: page.goto: net::ERR_EMPTY_RESPONSE at https://ads.microsoft.com/ | Call log: |   - navigating to \"https://ads.microsoft.com/\", waiting until \"domcontentloaded\" |  |     at restoreAccount (C:\\Users\\ADMEXO\\Downloads\\automation profile\\restore.js:273:16)"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-07T17:18:52.047Z",
+      "m": "→ URL  : chrome-error://chromewebdata/"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-07T17:18:52.047Z",
+      "m": "→ Title: ads.microsoft.com"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-07T17:18:52.159Z",
+      "m": "→ Screenshot: logs/screenshots/sangdierdorfdu2580_hotmail_com_restore_error_2026-04-07T17-18-52-048Z.png"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-07T17:18:52.168Z",
+      "m": "→ Page body: This page isn’t working ads.microsoft.com didn’t send any data. ERR_EMPTY_RESPONSE Reload"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-07T17:18:52.261Z",
+      "m": "✅ Session saved: sessions/sangdierdorfdu2580_hotmail_com_RESTORE_error_2026-04-07T17-18-52-168Z.json (26 cookies)"
+    }
+  ]
+}

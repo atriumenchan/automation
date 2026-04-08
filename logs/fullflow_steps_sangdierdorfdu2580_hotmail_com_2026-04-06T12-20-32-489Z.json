@@ -1,0 +1,56 @@
+{
+  "email": "sangdierdorfdu2580@hotmail.com",
+  "status": "failed",
+  "steps": [
+    {
+      "n": 1,
+      "t": "2026-04-06T12:20:29.378Z",
+      "msg": "Launch browser"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:20:29.903Z",
+      "msg": "Navigate to Microsoft login"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-06T12:20:32.254Z",
+      "msg": "ERROR — diagnostics"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-06T12:20:32.254Z",
+      "msg": "  ✗  page.goto: Target page, context or browser has been closed\nCall log:\n  - navigating to \"https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true\", waiting until \"domcontentloaded\"\n"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-06T12:20:32.254Z",
+      "msg": "  → Stack: page.goto: Target page, context or browser has been closed | Call log: |   - navigating to \"https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true\", waiting until \"domcontentloaded\" |  |     at processAccount (C:\\Users\\ADMEXO\\Downloads\\automation profile\\full_flow.js:660:16)"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-06T12:20:32.255Z",
+      "msg": "  → URL  : https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-06T12:20:32.255Z",
+      "msg": "  → Title: ?"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-06T12:20:32.255Z",
+      "msg": "  → (screenshot failed: page.screenshot: Target page, context or browser has been closed)"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-06T12:20:32.256Z",
+      "msg": "  → Page body: "
+    },
+    {
+      "n": 3,
+      "t": "2026-04-06T12:20:32.488Z",
+      "msg": "  ✅ Session saved: sessions\\sangdierdorfdu2580_hotmail_com_error_2026-04-06T12-20-32-257Z.json (6 cookies)"
+    }
+  ]
+}

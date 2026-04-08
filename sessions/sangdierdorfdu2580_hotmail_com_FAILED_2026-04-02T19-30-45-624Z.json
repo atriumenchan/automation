@@ -1,0 +1,65 @@
+{
+  "cookies": [
+    {
+      "name": "buid",
+      "value": "1.AXkAMe_N-B6jSkuT5F9XHpElWm7xaF6LtY5KszxPc38ces4AAAB5AA.AQABGgEAAACvnsHKEvvRQb3Bz3Qc7wnaRXZvU3RzQXJ0aWZhY3RzAwAAAAAAXETo9eO7iYM2ltb1ZyxHsaTVHaSVXU1yU_dayS6SIXBYZ9pC-0pkOhrewyUI8gKnIzfPKsqScR5jb1-sxeAu-LR5dLH5WlDV-US2llgv8aQgAA",
+      "domain": "login.microsoftonline.com",
+      "path": "/",
+      "expires": 1777750245.451686,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "esctx",
+      "value": "PAQABBwEAAACvnsHKEvvRQb3Bz3Qc7wnaRXZvU3RzQXJ0aWZhY3RzDQAAAAAAQMa3Jp5v_XsOglKukTdfRE-Y9Dw7pJt1aQ8mvodR70df6IElF3VJwjJxbEFcBMx1IfHvSHJhllWj28B9rc78kvNiukAoAk9BVnQ60LXpW8LN5Omqh-D4_LbWBEdt-kyWH3HFlsCKzprd1gAwbPIQfXT2xg2Veoi48pUz_NGdLs8gAA",
+      "domain": ".login.microsoftonline.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "esctx-WpSR12nmLn4",
+      "value": "AQABCQEAAACvnsHKEvvRQb3Bz3Qc7wnaRXZvU3RzQXJ0aWZhY3RzDQAAAAAAtGTLUsPkY-rOM9E8eczXgSYtexpsRVhI6DknNJpMO12UEu_MdtDdMJG3xsaa47L_VieoYL6tZuGhy2_0CgaRgYf_vmawKBHOFDgG59yvqrKC2MYpNiOrqbo_TH-0g7Ld_MGJJrSL6TaldaHhBBv6TCAA",
+      "domain": ".login.microsoftonline.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "fpc",
+      "value": "AghFy2Y9Gr5HiMhCRJmsqvg5eL6mAQAAAOW6YOEOAAAA",
+      "domain": "login.microsoftonline.com",
+      "path": "/",
+      "expires": 1777750245.451897,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "x-ms-gateway-slice",
+      "value": "estsfd",
+      "domain": "login.microsoftonline.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "stsservicecookie",
+      "value": "estsfd",
+      "domain": "login.microsoftonline.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": []
+}

@@ -1,0 +1,136 @@
+{
+  "email": "travisgalyonaf182012@hotmail.com",
+  "status": "already_used",
+  "steps": [
+    {
+      "n": 1,
+      "t": "2026-04-06T12:29:30.231Z",
+      "msg": "Launch browser"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:29:31.160Z",
+      "msg": "Navigate to Microsoft login"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:29:38.154Z",
+      "msg": "  → URL  : https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:29:38.155Z",
+      "msg": "  → Title: Sign in to your account"
+    },
+    {
+      "n": 2,
+      "t": "2026-04-06T12:29:38.551Z",
+      "msg": "  → Screenshot → logs/screenshots/travisgalyonaf182012_hotmail_com_login_page_2026-04-06T12-29-38-155Z.png"
+    },
+    {
+      "n": 3,
+      "t": "2026-04-06T12:29:38.552Z",
+      "msg": "Phase 1 — Microsoft login"
+    },
+    {
+      "n": 4,
+      "t": "2026-04-06T12:29:38.552Z",
+      "msg": "Dismiss account picker"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:29:38.639Z",
+      "msg": "Enter email"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:29:38.666Z",
+      "msg": "  → Email field: input[name=\"loginfmt\"]"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:29:44.464Z",
+      "msg": "  ✅ Email typed: travisgalyonaf182012@hotmail.com"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:29:45.366Z",
+      "msg": "  ✅ Clicked Next [input[type=\"submit\"]]"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:29:48.361Z",
+      "msg": "  → URL  : https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&response_type=code%20id_token&scope=openid%20profile&state=OpenIdConnect.AuthenticationProperties%3DpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&prompt=select_account&lc=1033&uaid=dfb2ea0436af4370bd18c9952bbe8329&redirect_uri=https%3A%2F%2Fads.microsoft.com%2FLogin%2FMsa&x-client-SKU=ID_NET461&x-client-ver=6.6.0.0&sso_reload=true"
+    },
+    {
+      "n": 5,
+      "t": "2026-04-06T12:29:48.361Z",
+      "msg": "  → Title: Loading https://login.live.com/oauth20_authorize.srf?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&scope=openid+profile&redirect_uri=https%3a%2f%2fads.microsoft.com%2fLogin%2fMsa&response_type=code+id_token&state=OpenIdConnect.AuthenticationProperties%3dpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&x-client-SKU=ID_NET461&x-client-Ver=6.6.0.0&uaid=2c261bcc26654af998d34b9b49125450&msproxy=1&issuer=mso&tenant=common&ui_locales=en-US&epctrc=F3wbJHU4woGEeJAZt%2fVzfSd8uj2T7YM9hmJUT9Y93vA%3d2%3a1%3aCANARY%3a%2bOD9DrATvwHVynFsJ6uvSDFfhupaPwIkCrr29jqRC%2bs%3d&epct=PAQABDgEAAACvnsHKEvvRQb3Bz3Qc7wnaRXZvU3RzQXJ0aWZhY3RzCAAAAAAA1AS661PCT9C-2lrnfvu1fRi11sVjGmYYxx612Z5yxqNf934j8gqmp60VR6IkcgxvAxuyr0JxYiFoe83sJ7PaX3ZtbEhG2ihoYUQVV6Ahkhr-Nq-dNIcwnrXHrNDHNcPSCI7JO9yrcvHXqwnXI8AbBFRyZbCmY6gtOacATxJtUXO7HZ4rGPM0zcv8nLQ4ohhj76nRRxyQ57q1DzCI7AnvXyAA&jshs=2&jsh=&jshp=&username=travisgalyonaf182012%40hotmail.com&login_hint=travisgalyonaf182012%40hotmail.com"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:29:48.361Z",
+      "msg": "Enter password"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:30:00.627Z",
+      "msg": "  → Screenshot → logs/screenshots/travisgalyonaf182012_hotmail_com_password_field_missing_2026-04-06T12-30-00-373Z.png"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:30:00.632Z",
+      "msg": "  → URL  : https://login.live.com/oauth20_authorize.srf?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&scope=openid+profile&redirect_uri=https%3a%2f%2fads.microsoft.com%2fLogin%2fMsa&response_type=code+id_token&state=OpenIdConnect.AuthenticationProperties%3dpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&x-client-SKU=ID_NET461&x-client-Ver=6.6.0.0&uaid=2c261bcc26654af998d34b9b49125450&msproxy=1&issuer=mso&tenant=common&ui_locales=en-US&epctrc=F3wbJHU4woGEeJAZt%2fVzfSd8uj2T7YM9hmJUT9Y93vA%3d2%3a1%3aCANARY%3a%2bOD9DrATvwHVynFsJ6uvSDFfhupaPwIkCrr29jqRC%2bs%3d&epct=PAQABDgEAAACvnsHKEvvRQb3Bz3Qc7wnaRXZvU3RzQXJ0aWZhY3RzCAAAAAAA1AS661PCT9C-2lrnfvu1fRi11sVjGmYYxx612Z5yxqNf934j8gqmp60VR6IkcgxvAxuyr0JxYiFoe83sJ7PaX3ZtbEhG2ihoYUQVV6Ahkhr-Nq-dNIcwnrXHrNDHNcPSCI7JO9yrcvHXqwnXI8AbBFRyZbCmY6gtOacATxJtUXO7HZ4rGPM0zcv8nLQ4ohhj76nRRxyQ57q1DzCI7AnvXyAA&jshs=2&jsh=&jshp=&username=travisgalyonaf182012%40hotmail.com&login_hint=travisgalyonaf182012%40hotmail.com"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:30:00.632Z",
+      "msg": "  → Title: Verify your email"
+    },
+    {
+      "n": 6,
+      "t": "2026-04-06T12:30:00.644Z",
+      "msg": "  → \"Verify your email\" screen — existing secondary: 63*****@mailslurp"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-06T12:30:00.644Z",
+      "msg": "ERROR — diagnostics"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-06T12:30:00.644Z",
+      "msg": "  ✗  Account already has secondary email set up (63*****@mailslurp) — marking as already_used"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-06T12:30:00.644Z",
+      "msg": "  → Stack: Error: Account already has secondary email set up (63*****@mailslurp) — marking as already_used |     at phaseLogin (C:\\Users\\ADMEXO\\Downloads\\automation profile\\full_flow.js:316:9) |     at async processAccount (C:\\Users\\ADMEXO\\Downloads\\automation profile\\full_flow.js:674:5) |     at async C:\\Users\\ADMEXO\\Downloads\\automation profile\\full_flow.js:850:18"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-06T12:30:00.649Z",
+      "msg": "  → URL  : https://login.live.com/oauth20_authorize.srf?client_id=5e68f16e-b58b-4a8e-b33c-4f737f1c7ace&scope=openid+profile&redirect_uri=https%3a%2f%2fads.microsoft.com%2fLogin%2fMsa&response_type=code+id_token&state=OpenIdConnect.AuthenticationProperties%3dpiyGGSnTAo0APgfvk4embDHBQtjsu8EhZHJ3F_mVHbXPXIvPItKhAfDLQh6izZ7r2exBcDY41h7HFpkJcM-ejaJKcNrUybC795b_bds0THGpJLCAOe7WKbykwd5jRjPXc0qRSZeoPW5IWEcj1mMcK2Q_sGyC-L24AoW0KTtc84EF926Ve4tpjIzju6vYd9XABxTR0lC4xQ7vj09zwWe199UkHtybjqo2fcW4Jyqr5pDMkQ_9pKTztJ3-Na7UWLWRPL3sIJgMWVS-VJD6BNafLGNRjZthUuVqEa80L1P4QsRi56B9iGaQAwQxkuOZGTaMLv0iVw&response_mode=form_post&nonce=639106624034175985.ZmRjNGRhZGItOTJjZi00NjY2LTgyODgtZGViNjM2ZDZhNzJiYjE1YmQxNTYtOWJjOS00NTFiLThhOWQtY2U0MThmOThhMjhk&x-client-SKU=ID_NET461&x-client-Ver=6.6.0.0&uaid=2c261bcc26654af998d34b9b49125450&msproxy=1&issuer=mso&tenant=common&ui_locales=en-US&epctrc=F3wbJHU4woGEeJAZt%2fVzfSd8uj2T7YM9hmJUT9Y93vA%3d2%3a1%3aCANARY%3a%2bOD9DrATvwHVynFsJ6uvSDFfhupaPwIkCrr29jqRC%2bs%3d&epct=PAQABDgEAAACvnsHKEvvRQb3Bz3Qc7wnaRXZvU3RzQXJ0aWZhY3RzCAAAAAAA1AS661PCT9C-2lrnfvu1fRi11sVjGmYYxx612Z5yxqNf934j8gqmp60VR6IkcgxvAxuyr0JxYiFoe83sJ7PaX3ZtbEhG2ihoYUQVV6Ahkhr-Nq-dNIcwnrXHrNDHNcPSCI7JO9yrcvHXqwnXI8AbBFRyZbCmY6gtOacATxJtUXO7HZ4rGPM0zcv8nLQ4ohhj76nRRxyQ57q1DzCI7AnvXyAA&jshs=2&jsh=&jshp=&username=travisgalyonaf182012%40hotmail.com&login_hint=travisgalyonaf182012%40hotmail.com"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-06T12:30:00.649Z",
+      "msg": "  → Title: Verify your email"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-06T12:30:00.882Z",
+      "msg": "  → Screenshot → logs/screenshots/travisgalyonaf182012_hotmail_com_error_2026-04-06T12-30-00-650Z.png"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-06T12:30:00.890Z",
+      "msg": "  → Page body: travisgalyonaf182012@hotmail.com Verify your email We'll send a code to 63*****@mailslurp.world. To verify this is your email, enter it here. Email Send code Already received a code? Use your password Help and feedback Terms of use Privacy and cookies Use private browsing if this is not your device. Learn more"
+    },
+    {
+      "n": 7,
+      "t": "2026-04-06T12:30:01.239Z",
+      "msg": "  ✅ Session saved: sessions\\travisgalyonaf182012_hotmail_com_error_2026-04-06T12-30-00-896Z.json (15 cookies)"
+    }
+  ]
+}

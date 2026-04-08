@@ -1,0 +1,44 @@
+[
+  {
+    "email": "sangdierdorfdu2580@hotmail.com",
+    "status": "pending_confirm",
+    "session": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\sangdierdorfdu2580_hotmail_com_RESTORE_final_2026-04-06T13-05-09-359Z.json",
+    "final_url": "https://ads.microsoft.com/PMaxLite/Signup/?aid=187212540&cid=254799223&idP=MSA&s_cid=acq-pmaxlanding-src_default&uid=193049838",
+    "time": "2026-04-06T13:05:09.918Z"
+  },
+  {
+    "email": "sangdierdorfdu2580@hotmail.com",
+    "status": "pending_confirm",
+    "session": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\sangdierdorfdu2580_hotmail_com_RESTORE_final_2026-04-07T16-43-57-160Z.json",
+    "final_url": "https://ads.microsoft.com/PMaxLite/Signup/?aid=187212540&cid=254799223&fallbackSource=true&idP=MSA&s_cid=acq-pmaxlanding-src_default&uid=193049838",
+    "time": "2026-04-07T16:43:58.054Z"
+  },
+  {
+    "email": "sangdierdorfdu2580@hotmail.com",
+    "status": "pending_confirm",
+    "session": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\sangdierdorfdu2580_hotmail_com_RESTORE_final_2026-04-07T16-56-18-479Z.json",
+    "final_url": "https://ads.microsoft.com/PMaxLite/Signup/?aid=187212540&cid=254799223&idP=MSA&s_cid=acq-pmaxlanding-src_default&uid=193049838",
+    "time": "2026-04-07T16:56:19.048Z"
+  },
+  {
+    "email": "sangdierdorfdu2580@hotmail.com",
+    "status": "pending_confirm",
+    "session": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\sangdierdorfdu2580_hotmail_com_RESTORE_final_2026-04-07T17-02-16-896Z.json",
+    "final_url": "https://ads.microsoft.com/PMaxLite/Signup/?aid=187212540&cid=254799223&idP=MSA&s_cid=acq-pmaxlanding-src_default&uid=193049838",
+    "time": "2026-04-07T17:02:17.366Z"
+  },
+  {
+    "email": "sangdierdorfdu2580@hotmail.com",
+    "status": "pending_confirm",
+    "session": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\sangdierdorfdu2580_hotmail_com_RESTORE_final_2026-04-07T17-15-33-407Z.json",
+    "final_url": "https://ui.ads.microsoft.com/campaign/pmaxlitelanding/signin?",
+    "time": "2026-04-07T17:15:33.893Z"
+  },
+  {
+    "email": "sangdierdorfdu2580@hotmail.com",
+    "status": "pending_confirm",
+    "session": "C:\\Users\\ADMEXO\\Downloads\\automation profile\\sessions\\sangdierdorfdu2580_hotmail_com_RESTORE_final_2026-04-07T17-23-59-781Z.json",
+    "final_url": "https://ads.microsoft.com/PMaxLite/Signup/?aid=187212540&cid=254799223&idP=MSA&s_cid=acq-pmaxlanding-src_default&uid=193049838",
+    "time": "2026-04-07T17:24:01.116Z"
+  }
+]
