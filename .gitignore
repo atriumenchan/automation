@@ -1,0 +1,23 @@
+node_modules/
+sessions/
+logs/
+accounts/
+inboxes/
+.env
+.env.*
+
+# Secrets & local config (do not commit)
+proxies.txt
+rambler.txt
+emails.json
+business.json
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.cursor/
+working things/
+
+# Step runner local state / screenshots
+steps/screenshots/
+steps/state.json
